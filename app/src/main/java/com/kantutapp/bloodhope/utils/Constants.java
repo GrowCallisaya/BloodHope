@@ -7,4 +7,6 @@ package com.kantutapp.bloodhope.utils;
 public class Constants {
 
     public static final String USER_ACCOUNT = "user_account";
+
+
 }

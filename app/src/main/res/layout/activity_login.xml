@@ -28,7 +28,7 @@
                 android:src="@drawable/login_background"
                 android:scaleType="centerCrop"/>
 
-            <TextView
+            <com.kantutapp.bloodhope.utils.TextViewMontserratBold
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/login_background"
@@ -76,7 +76,8 @@
                 fancy:fb_iconPosition="left"
                 fancy:fb_radius="20dp"
                 fancy:fb_text="Google"
-                fancy:fb_textColor="#202020" />
+                fancy:fb_textColor="#202020"
+                fancy:fb_textFontRes="@font/montserrat"/>
 
             <mehdi.sakout.fancybuttons.FancyButton
                 android:id="@+id/btn_facebook"
@@ -95,7 +96,8 @@
                 fancy:fb_iconPaddingRight="65dp"
                 fancy:fb_radius="30dp"
                 fancy:fb_text="Facebook"
-                fancy:fb_textColor="#FFFFFF" />
+                fancy:fb_textColor="#FFFFFF"
+                fancy:fb_textFontRes="@font/montserrat"/>
 
         </LinearLayout>
 </LinearLayout>
