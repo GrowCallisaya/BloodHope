@@ -3,26 +3,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context=".RegisterUserActivity">
 
-    <LinearLayout
+
+    <mehdi.sakout.fancybuttons.FancyButton
+        android:id="@+id/btn_done"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center">
-
-        <TextView
-            android:id="@+id/tv_name"
-            android:text="Name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <Button
-            android:id="@+id/btn_logout"
-            android:text="@string/action_sign_out"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:paddingBottom="12dp"
+        android:paddingTop="12dp"
+        fancy:fb_defaultColor="#ff5353"
+        fancy:fb_focusColor="#ff4d4d"
+        fancy:fb_radius="20dp"
+        fancy:fb_text="DONE"
+        fancy:fb_textColor="#ffffff"
+        fancy:fb_textFontRes="@font/montserrat"/>
 
 </FrameLayout>

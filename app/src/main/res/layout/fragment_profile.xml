@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.kantutapp.bloodhope.fragments.ProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@color/colorAccent"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_thumbnail"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/profile"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FFFFFFFF"/>
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:id="@+id/profile_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_thumbnail"
+            android:layout_centerHorizontal="true"
+            android:text="Grover callisaya"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="10dp"/>
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratRegular
+            android:id="@+id/profile_number_donations"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/profile_name"
+            android:layout_centerHorizontal="true"
+            android:text="4 DONATIONS"
+            android:textSize="10sp"
+            android:textColor="@color/colorWhite"
+            android:layout_marginTop="5dp"/>
+    </RelativeLayout>
+
+    <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_margin="16dp"
+        android:text="My Causes"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!--Recycler of Causes-->
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_causes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>

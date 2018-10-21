@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/category_prices"
+        android:enabled="true"
+        android:title="@string/blood_category_prices"
+        android:icon="@drawable/menu_blood"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/category_donate"
+        android:enabled="true"
+        android:title="@string/blood_category_donate"
+        android:icon="@drawable/menu_blood"
+        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/category_profile"
+        android:enabled="true"
+        android:title="@string/blood_category_profile"
+        android:icon="@drawable/menu_blood"
+        app:showAsAction="ifRoom"/>
+</menu>
