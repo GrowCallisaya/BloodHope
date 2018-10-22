@@ -10,6 +10,9 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class MainActivity extends AppCompatActivity {
 
     private ViewPager m_slideView;
@@ -26,6 +29,13 @@ public class MainActivity extends AppCompatActivity {
         m_taps =      findViewById(R.id.taps);
         m_btnNext = findViewById(R.id.button2next);
         m_btnPrev = findViewById(R.id.button1prev);
+
+        FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
+        if (acct != null){
+            startActivity(new Intent(MainActivity.this, GeneralActivity.class));
+            finish();
+            return;
+        }
 
         sliderAdapter = new SlideWelcomeAdapter(this);
 

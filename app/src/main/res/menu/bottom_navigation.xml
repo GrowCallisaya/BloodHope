@@ -4,18 +4,18 @@
         android:id="@+id/category_prices"
         android:enabled="true"
         android:title="@string/blood_category_prices"
-        android:icon="@drawable/menu_blood"
+        android:icon="@drawable/ic_award"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/category_donate"
         android:enabled="true"
         android:title="@string/blood_category_donate"
-        android:icon="@drawable/menu_blood"
+        android:icon="@drawable/ic_blood"
         app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/category_profile"
         android:enabled="true"
         android:title="@string/blood_category_profile"
-        android:icon="@drawable/menu_blood"
+        android:icon="@drawable/ic_profile"
         app:showAsAction="ifRoom"/>
 </menu>

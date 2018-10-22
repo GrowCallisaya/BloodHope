@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -18,6 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.kantutapp.bloodhope.fragments.DonateFragment;
 import com.kantutapp.bloodhope.fragments.PricesFragment;
 import com.kantutapp.bloodhope.fragments.ProfileFragment;
+import com.kantutapp.bloodhope.models.User;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,6 +31,9 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
     public static final int TAB_DONATE = 1;
     public static final int TAB_PROFILE = 2;
 
+
+    public static final String USER = "User";
+
     @BindView(R.id.bottom_navigation) BottomNavigationView bottomNavigation;
 
 
@@ -38,6 +43,11 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
         setContentView(R.layout.activity_general);
         ButterKnife.bind(this);
 
+        Intent intent = getIntent();
+        if (intent.getParcelableExtra(USER) != null){
+            User user = intent.getParcelableExtra(USER);
+            Toast.makeText(this, user.getTypeOfBlood(), Toast.LENGTH_SHORT).show();
+        }
         // Firebase User
         FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
         if (acct != null) {
@@ -48,6 +58,8 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
 
         setFragment(new ProfileFragment());
         bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
+        bottomNavigation.getMenu().getItem(TAB_DONATE).setIcon(R.drawable.ic_blood);
+
         bottomNavigation.setOnNavigationItemSelectedListener(this);
 
     }

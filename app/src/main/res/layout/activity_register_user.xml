@@ -3,22 +3,53 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context=".RegisterUserActivity">
 
 
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/btn_done"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
-        fancy:fb_defaultColor="#ff5353"
-        fancy:fb_focusColor="#ff4d4d"
-        fancy:fb_radius="20dp"
-        fancy:fb_text="DONE"
-        fancy:fb_textColor="#ffffff"
-        fancy:fb_textFontRes="@font/montserrat"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/et_user_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Phone Number" />
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="10dp"
+            android:text="Select Blood Group"/>
+
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_blood_types"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/btn_done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp"
+            fancy:fb_defaultColor="#ff5353"
+            fancy:fb_focusColor="#ff4d4d"
+            fancy:fb_radius="20dp"
+            fancy:fb_text="DONE"
+            fancy:fb_textColor="#ffffff"
+            fancy:fb_textFontRes="@font/montserrat"/>
+
+    </LinearLayout>
 
 </FrameLayout>
