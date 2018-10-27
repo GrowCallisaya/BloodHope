@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class User implements Parcelable {
+
     String name;
     String photo;
     String phoneNumber;
@@ -12,7 +13,8 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public User(String name, String photo, String phoneNumber, String typeOfBlood) {
+    public User(  String name, String photo, String phoneNumber, String typeOfBlood) {
+
         this.name = name;
         this.photo = photo;
         this.phoneNumber = phoneNumber;
@@ -78,6 +80,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+
         dest.writeString(name);
         dest.writeString(photo);
         dest.writeString(phoneNumber);

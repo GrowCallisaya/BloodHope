@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.kantutapp.bloodhope.adapter.BloodAdapter;
 import com.kantutapp.bloodhope.fragments.DonateFragment;
 import com.kantutapp.bloodhope.fragments.PricesFragment;
@@ -44,6 +47,15 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.et_user_number) EditText etUserNumber;
 
     private User currentUser = new User();
+
+
+    //initializing firebase authentication object
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = firebaseDatabase.getReference();
+
+    FirebaseUser firebaseUser;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,15 +91,22 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void goToGeneralActivity() {
-        Intent intent = new Intent(RegisterUserActivity.this, GeneralActivity.class);
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         currentUser.setName(firebaseUser.getDisplayName());
         currentUser.setPhoto(firebaseUser.getPhotoUrl().toString());
         currentUser.setPhoneNumber(etUserNumber.getText().toString());
+
+
+        createUser(  currentUser);
+        Intent intent = new Intent(RegisterUserActivity.this, GeneralActivity.class);
         intent.putExtra(USER, currentUser);
         startActivity(intent);
         finish();
+
+
     }
 
 
@@ -95,5 +114,14 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     public void onBloodTypeClickListener(String bloodType) {
         currentUser.setTypeOfBlood(bloodType);
         Toast.makeText(this, bloodType, Toast.LENGTH_SHORT).show();
+
+    }
+    public void createUser(User user ) {
+        //Realtime Firebase
+
+        DatabaseReference newData = ref.child("users").child(firebaseUser.getUid());
+        newData.setValue(user);
+        Log.w(TAG, "create " + firebaseUser.getUid() + "." +user.getTypeOfBlood());
+
     }
 }
