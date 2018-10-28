@@ -54,6 +54,8 @@ dependencies {
     // InfiniteRecyclerViewPager
     implementation 'com.github.devlight:infinitecycleviewpager:1.0.2'
 
+    // Rounded ProgressBar
+    implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

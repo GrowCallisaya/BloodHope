@@ -1,22 +1,34 @@
 package com.kantutapp.bloodhope.models;
 
 public class Cause {
-    String name;
+    String title;
     String url;
-    String donations;
+    String deadline;
+    String description;
+    int number_donations;
+    int total_donations;
+    String blood_type;
+    String hospital;
+    String city;
 
-    public Cause(String name, String url, String donations) {
-        this.name = name;
+    public Cause(String title, String url, String deadline, String description, int number_donations, int total_donations, String blood_type, String hospital, String city) {
+        this.title = title;
         this.url = url;
-        this.donations = donations;
+        this.deadline = deadline;
+        this.description = description;
+        this.number_donations = number_donations;
+        this.total_donations = total_donations;
+        this.blood_type = blood_type;
+        this.hospital = hospital;
+        this.city = city;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getUrl() {
@@ -27,11 +39,59 @@ public class Cause {
         this.url = url;
     }
 
-    public String getDonations() {
-        return donations;
+    public String getDeadline() {
+        return deadline;
     }
 
-    public void setDonations(String donations) {
-        this.donations = donations;
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getNumber_donations() {
+        return number_donations;
+    }
+
+    public void setNumber_donations(int number_donations) {
+        this.number_donations = number_donations;
+    }
+
+    public int getTotal_donations() {
+        return total_donations;
+    }
+
+    public void setTotal_donations(int total_donations) {
+        this.total_donations = total_donations;
+    }
+
+    public String getBlood_type() {
+        return blood_type;
+    }
+
+    public void setBlood_type(String blood_type) {
+        this.blood_type = blood_type;
+    }
+
+    public String getHospital() {
+        return hospital;
+    }
+
+    public void setHospital(String hospital) {
+        this.hospital = hospital;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 }

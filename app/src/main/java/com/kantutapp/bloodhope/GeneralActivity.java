@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.Transaction;
 import com.kantutapp.bloodhope.fragments.DonateFragment;
 import com.kantutapp.bloodhope.fragments.PricesFragment;
 import com.kantutapp.bloodhope.fragments.ProfileFragment;
@@ -43,24 +45,33 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
         setContentView(R.layout.activity_general);
         ButterKnife.bind(this);
 
-        Intent intent = getIntent();
-        if (intent.getParcelableExtra(USER) != null){
-            User user = intent.getParcelableExtra(USER);
-            Toast.makeText(this, user.getTypeOfBlood(), Toast.LENGTH_SHORT).show();
-        }
-        // Firebase User
-        FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
-        if (acct != null) {
-            String personName = acct.getDisplayName();
-            String personEmail = acct.getEmail();
-            Uri personPhoto = acct.getPhotoUrl();
-        }
+        if (findViewById(R.id.fragment_container) != null) {
 
-        setFragment(new ProfileFragment());
-        bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
-        bottomNavigation.getMenu().getItem(TAB_DONATE).setIcon(R.drawable.ic_blood);
+            // However, if we're being restored from a previous state,
+            // then we don't need to do anything and should return or else
+            // we could end up with overlapping fragments.
+            if (savedInstanceState != null) {
+                return;
+            }
 
+            // Create a new Fragment to be placed in the activity layout
+            ProfileFragment profileFragment = new ProfileFragment();
+
+            // In case this activity was started with special instructions from an
+            // Intent, pass the Intent's extras to the fragment as arguments
+            profileFragment.setArguments(getIntent().getExtras());
+
+            // Add the fragment to the 'fragment_container' FrameLayout
+
+            bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
+            bottomNavigation.getMenu().getItem(TAB_DONATE).setIcon(R.drawable.ic_blood);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.fragment_container, profileFragment).commit();
+
+        }
         bottomNavigation.setOnNavigationItemSelectedListener(this);
+
+
 
     }
 
@@ -87,7 +98,10 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
 
     public void setFragment(Fragment fragment) {
         FragmentManager manager = getSupportFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 

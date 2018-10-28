@@ -62,9 +62,9 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         recyclerViewCauses.setLayoutManager(layoutManager);
 
         List<Cause> causes = new ArrayList<>();
-        causes.add(new Cause("Cause 1","http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg",""));
-        causes.add(new Cause("Cause 2","https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222",""));
-        causes.add(new Cause("Cause 3","https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg",""));
+//        causes.add(new Cause("Cause 1","http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg",""));
+//        causes.add(new Cause("Cause 2","https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222",""));
+//        causes.add(new Cause("Cause 3","https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg",""));
 
         CausesAdapter adapter = new CausesAdapter(causes,mContext, this);
         recyclerViewCauses.setAdapter(adapter);
@@ -94,17 +94,17 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
     @Override
     public void onCardClickListener(Cause cause) {
-        Toast.makeText(mContext, "This is " + cause.getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "This is " + cause.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onDeleteListener(Cause cause) {
-        Toast.makeText(mContext, "Delete " + cause.getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Delete " + cause.getName(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onEditListener(Cause cause) {
-        Toast.makeText(mContext, "Edit " + cause.getName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext, "Edit " + cause.getName(), Toast.LENGTH_SHORT).show();
 
     }
 }
