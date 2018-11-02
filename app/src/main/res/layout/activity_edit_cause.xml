@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
@@ -49,6 +49,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
+            android:inputType= "phone"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
             android:hint="Mobile Number (WhatsApp)" />
@@ -56,6 +57,7 @@
             android:id="@+id/et_donations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="number"
             android:padding="12dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
@@ -65,21 +67,24 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/login_background"
             android:paddingBottom="10dp"
+
             android:layout_centerHorizontal="true"
             android:text="Deadline"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
+
         <EditText
             android:id="@+id/et_deadline"
-            android:hint=" "
+            android:hint="YYYY/MM/DD "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ems="10"
             android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
-            android:maxLines="1" />
+            />
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -90,16 +95,10 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-        <EditText
-            android:id="@+id/et_city"
-            android:hint=" "
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/custom_edit_text"
-            android:maxLines="1" />
+            android:id="@+id/spinner"></Spinner>
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -110,16 +109,11 @@
         android:textStyle="bold"
         android:textSize="15sp"
         android:textColor="#000"/>
-        <EditText
-            android:id="@+id/et_hospital"
-            android:hint=" "
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="date"
-            android:focusable="false"
-            android:clickable="true"
-            android:background="@drawable/custom_edit_text"
-            android:maxLines="1" />
+            android:id="@+id/spinner2"
+            ></Spinner>
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,6 +127,7 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_blood_types"
+            android:background="@drawable/custom_edit_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
@@ -145,11 +140,38 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/login_background"
+            android:paddingBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Title of story"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="Title" />
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/login_background"
+            android:paddingBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Description of story"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
         <EditText
             android:id="@+id/et_story"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="130dp"
             android:ems="10"
             android:hint="What do you want to say to people! "
 
@@ -183,11 +205,11 @@
             fancy:fb_textColor="#ffffff"
             fancy:fb_textFontRes="@font/montserrat" />
         <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/btn_done"
+            android:id="@+id/btn_submit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="12dp"
-            android:layout_marginBottom="12dp"
+            android:layout_marginBottom="25dp"
             android:paddingTop="12dp"
             fancy:fb_defaultColor="#ff5353"
             fancy:fb_focusColor="#ff4d4d"

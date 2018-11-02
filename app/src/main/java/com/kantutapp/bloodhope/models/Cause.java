@@ -10,8 +10,12 @@ public class Cause {
     String blood_type;
     String hospital;
     String city;
+    String user_id;
+    String startdate;
 
-    public Cause(String title, String url, String deadline, String description, int number_donations, int total_donations, String blood_type, String hospital, String city) {
+
+
+    public Cause(String title, String url, String deadline, String description, int number_donations, int total_donations, String blood_type, String hospital, String city, String user_id, String startdate) {
         this.title = title;
         this.url = url;
         this.deadline = deadline;
@@ -21,6 +25,12 @@ public class Cause {
         this.blood_type = blood_type;
         this.hospital = hospital;
         this.city = city;
+        this.user_id = user_id;
+        this.startdate = startdate;
+    }
+
+    public Cause() {
+
     }
 
     public String getTitle() {
@@ -93,5 +103,20 @@ public class Cause {
 
     public void setCity(String city) {
         this.city = city;
+    }
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public String getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
     }
 }

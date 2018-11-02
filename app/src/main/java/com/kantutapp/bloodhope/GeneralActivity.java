@@ -64,7 +64,7 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
             // Add the fragment to the 'fragment_container' FrameLayout
 
             bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
-            bottomNavigation.getMenu().getItem(TAB_DONATE).setIcon(R.drawable.ic_blood);
+            bottomNavigation.getMenu().getItem(TAB_PROFILE).setIcon(R.drawable.ic_blood);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, profileFragment).commit();
 

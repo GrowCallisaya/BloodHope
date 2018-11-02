@@ -51,7 +51,8 @@
             <ImageView
                 android:id="@+id/btn_filter"
                 android:layout_width="30dp"
-                android:layout_height="30dp" 
+                android:layout_height="30dp"
+                android:onClick="function_create"
                 android:layout_margin="16dp"
                 android:src="@drawable/ic_filter"
                 android:layout_alignParentRight="true"/>
