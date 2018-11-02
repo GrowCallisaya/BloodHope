@@ -62,7 +62,19 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+            <!--Button Create Cause -->
 
+            <Button
+                android:id="@+id/buttonCreate"
+                android:background="@android:color/transparent"
+                android:text="CREATE CAUSE"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:visibility="invisible"
+                android:textColor="@color/colorWhite"/>
             <!--Recycler of Causes-->
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_causes"

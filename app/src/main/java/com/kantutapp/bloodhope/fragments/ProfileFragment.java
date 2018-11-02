@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +33,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     @BindView(R.id.profile_number_donations) TextView textViewProfileDonations;
     @BindView(R.id.profile_thumbnail) CircleImageView circleImageViewThumbnail;
     @BindView(R.id.recycler_causes) RecyclerView recyclerViewCauses;
-
+    @BindView(R.id.buttonCreate) Button  btnCreate;
     Context mContext;
 
 
@@ -65,10 +66,15 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 //        causes.add(new Cause("Cause 1","http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg",""));
 //        causes.add(new Cause("Cause 2","https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222",""));
 //        causes.add(new Cause("Cause 3","https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg",""));
-
-        CausesAdapter adapter = new CausesAdapter(causes,mContext, this);
-        recyclerViewCauses.setAdapter(adapter);
-
+/*Create "Create Cause" button when there is no Cause in the Profile (FORM)
+        if (causes == null)
+        {
+              btnCreate.setVisibility(View.VISIBLE);
+        }
+        else {
+  */          CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
+            recyclerViewCauses.setAdapter(adapter);
+    //    }
 
         return view;
     }

@@ -48,7 +48,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".GeneralActivity"></activity>
+        <activity android:name=".GeneralActivity" />
+        <activity android:name=".EditCauseActivity"></activity>
     </application>
 
 </manifest>

@@ -1,14 +1,18 @@
 package com.kantutapp.bloodhope.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
+import com.kantutapp.bloodhope.LoginActivity;
 import com.kantutapp.bloodhope.R;
 import com.kantutapp.bloodhope.adapter.CarrouselPagerAdapter;
 import com.kantutapp.bloodhope.models.Cause;
@@ -23,11 +27,13 @@ public class DonateFragment extends Fragment {
 
     @BindView(R.id.btn_filter) ImageView btnFilter;
     @BindView(R.id.card_pager) HorizontalInfiniteCycleViewPager cardPager;
+   // @BindView(R.id.buttonCreate) Button btnCreate;
     Unbinder unbinder;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
     }
 
@@ -45,7 +51,9 @@ public class DonateFragment extends Fragment {
 
         // TODO Get data from Firebase
         ArrayList<Cause> causes = new ArrayList<>();
+
         causes.add(new Cause("Cause 1", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription This is some decription This is some decription This is some decription This is some decription",3,3,"A+","Florida","AZ"));
+
         causes.add(new Cause("Cause 2", "https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222", "","",3,10,"A+","Florida","AZ"));
         causes.add(new Cause("Cause 3", "https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg", "","",3,10,"A+","Florida","AZ"));
         causes.add(new Cause("Cause 4", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","",3,100,"A+","Florida","AZ"));
@@ -53,8 +61,11 @@ public class DonateFragment extends Fragment {
         causes.add(new Cause("Cause 6", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,7,"A+","Florida","AZ"));
         causes.add(new Cause("Cause 7", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,5,"A+","Florida","AZ"));
 
-        CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes);
-        cardPager.setAdapter(carrouselPagerAdapter);
+
+            CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes);
+            cardPager.setAdapter(carrouselPagerAdapter);
+
+
 
 
 
@@ -66,5 +77,9 @@ public class DonateFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
+    }
+    public void function_create(View v) {
+
+        Toast.makeText(mContext, "This is " , Toast.LENGTH_SHORT).show();
     }
 }
