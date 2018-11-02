@@ -159,37 +159,59 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
     @Override
     public void onBloodTypeClickListener(String bloodType) {
         currentUser.setTypeOfBlood(bloodType);
-        Toast.makeText(this, bloodType, Toast.LENGTH_SHORT).show();
+
 
     }
     private void saveCause() {
-        Log.w(TAG, "create " +   " . " +
-                etName.getText().toString()+   " . " +
-                etMobile.getText().toString()+   " . " +
-                etDonations.getText().toString()+   " . " +
-                etDeadline.getText().toString()+   " . " +
-                sCity.getSelectedItem().toString()+   " . " +
-                sHospital.getSelectedItem().toString()+   " . " +
-                currentUser.getTypeOfBlood()+   " . " +
-                etStory.getText().toString());
-          Cause currentCause = new Cause();
-          currentCause.setTitle(etTitle.getText().toString());
-          currentCause.setDeadline(etDeadline.getText().toString());
-          currentCause.setDescription(etStory.getText().toString());
+        final EditText[] misCampos = {etStory,etDeadline,etDonations,etMobile,etName,etTitle};
+        if (validarCampoVacio(misCampos)) {
+            Toast.makeText( this, "Faltan campos por llenar", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            Log.w(TAG, "create " +   " . " +
+                    firebaseUser.getUid()+   " . " +
+                    etName.getText().toString()+   " . " +
+                    etMobile.getText().toString()+   " . " +
+                    etDonations.getText().toString()+   " . " +
+                    etDeadline.getText().toString()+   " . " +
+                    sCity.getSelectedItem().toString()+   " . " +
+                    sHospital.getSelectedItem().toString()+   " . " +
+                    currentUser.getTypeOfBlood()+   " . " +
+                    etStory.getText().toString());
+            Cause currentCause = new Cause();
+            currentCause.setTitle(etTitle.getText().toString());
+            currentCause.setDeadline(etDeadline.getText().toString());
+            currentCause.setDescription(etStory.getText().toString());
 
-          int a1= Integer.parseInt(etDonations.getText().toString());
-          currentCause.setTotal_donations(a1);
-          currentCause.setBlood_type( currentUser.getTypeOfBlood());
-          currentCause.setCity( sCity.getSelectedItem().toString());
-          currentCause.setHospital(sHospital.getSelectedItem().toString());
-          String c=""+acct.getUid();
-          currentCause.setUser_id(c);
-          String b= ""+Calendar.getInstance().getTime();
-          currentCause.setStartdate(b);
+            int a1= Integer.parseInt(etDonations.getText().toString());
+            currentCause.setTotal_donations(a1);
+            currentCause.setBlood_type( currentUser.getTypeOfBlood());
+            currentCause.setCity( sCity.getSelectedItem().toString());
+            currentCause.setHospital(sHospital.getSelectedItem().toString());
+            String c=""+acct.getUid();
+            currentCause.setUser_id(c);
+            String b= ""+Calendar.getInstance().getTime();
+            currentCause.setStartdate(b);
 
-        //Realtime Firebase
+            //Realtime Firebase
 
-        DatabaseReference newData = ref.child("cause").child(firebaseUser.getUid());
-        newData.setValue(currentCause);
+            DatabaseReference newData = ref.child("causes").child(firebaseUser.getUid());
+            newData.setValue(currentCause);
+            Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
     }
+
+    }
+    public boolean validarCampoVacio(EditText[] campos){
+
+        for(int i=0; i<campos.length; i++){
+            String cadena = campos[i].getText().toString();
+            if(cadena.trim().isEmpty()){
+                return true;
+            }
+
+        }
+        return false;
+    }
+
 }

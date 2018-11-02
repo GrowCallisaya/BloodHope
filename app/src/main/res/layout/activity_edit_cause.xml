@@ -76,7 +76,7 @@
 
         <EditText
             android:id="@+id/et_deadline"
-            android:hint="YYYY/MM/DD "
+            android:hint="DD/MM/YYYY "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
