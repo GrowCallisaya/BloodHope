@@ -164,6 +164,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
     }
     private void saveCause() {
         final EditText[] misCampos = {etStory,etDeadline,etDonations,etMobile,etName,etTitle};
+        // Validate 6 EditText
         if (validarCampoVacio(misCampos)) {
             Toast.makeText( this, "Faltan campos por llenar", Toast.LENGTH_SHORT).show();
         }
@@ -191,12 +192,15 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
             currentCause.setHospital(sHospital.getSelectedItem().toString());
             String c=""+acct.getUid();
             currentCause.setUser_id(c);
-            String b= ""+Calendar.getInstance().getTime();
-            currentCause.setStartdate(b);
+            Calendar b= Calendar.getInstance();
+            int y = b.get(Calendar.YEAR);
+            int m = b.get(Calendar.MONTH);
+            int d = b.get(Calendar.DAY_OF_MONTH);
+            currentCause.setStartdate(d+"/"+m+"/"+y);
 
             //Realtime Firebase
 
-            DatabaseReference newData = ref.child("causes").child(firebaseUser.getUid());
+            DatabaseReference newData = ref.child("causes").child(firebaseUser.getEmail()+"$$"+d+"/"+m+"/"+y);
             newData.setValue(currentCause);
             Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
     }
