@@ -200,7 +200,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
 
             //Realtime Firebase
 
-            DatabaseReference newData = ref.child("causes").child(firebaseUser.getUid()+"_"+d+"/"+m+"/"+y);
+            DatabaseReference newData = ref.child("causes").child(firebaseUser.getUid()+"_"+d+"@"+m+"@"+y);
             newData.setValue(currentCause);
             Toast.makeText(this, "Guardado", Toast.LENGTH_SHORT).show();
     }
