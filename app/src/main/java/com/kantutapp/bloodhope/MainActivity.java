@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
         if (acct != null){
-            startActivity(new Intent(MainActivity.this, EditCauseActivity.class));
+            startActivity(new Intent(MainActivity.this, GeneralActivity.class));
             finish();
             return;
         }

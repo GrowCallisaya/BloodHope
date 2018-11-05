@@ -1,8 +1,11 @@
 package com.kantutapp.bloodhope.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +18,17 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.kantutapp.bloodhope.EditCauseActivity;
+import com.kantutapp.bloodhope.GeneralActivity;
 import com.kantutapp.bloodhope.R;
+import com.kantutapp.bloodhope.RegisterUserActivity;
 import com.kantutapp.bloodhope.adapter.CausesAdapter;
 import com.kantutapp.bloodhope.models.Cause;
 import com.squareup.picasso.Picasso;
@@ -25,7 +38,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import mehdi.sakout.fancybuttons.FancyButton;
 
 public class ProfileFragment extends Fragment implements CausesAdapter.OnItemClickHandler {
 
@@ -33,10 +48,11 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     @BindView(R.id.profile_number_donations) TextView textViewProfileDonations;
     @BindView(R.id.profile_thumbnail) CircleImageView circleImageViewThumbnail;
     @BindView(R.id.recycler_causes) RecyclerView recyclerViewCauses;
-    @BindView(R.id.buttonCreate) Button  btnCreate;
+    @BindView(R.id.buttonCreate)    FancyButton btnCreate;
     Context mContext;
-
-
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = firebaseDatabase.getReference(); // cause
+    List<Cause> causes = new ArrayList<>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,20 +78,53 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewCauses.setLayoutManager(layoutManager);
 
-        List<Cause> causes = new ArrayList<>();
-//        causes.add(new Cause("Cause 1","http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg",""));
-//        causes.add(new Cause("Cause 2","https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222",""));
-//        causes.add(new Cause("Cause 3","https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg",""));
-/*Create "Create Cause" button when there is no Cause in the Profile (FORM)
-        if (causes == null)
-        {
-              btnCreate.setVisibility(View.VISIBLE);
-        }
-        else {
-  */          CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
-            recyclerViewCauses.setAdapter(adapter);
-    //    }
 
+//Firebase ####################################################
+        // Get a reference to our posts
+        // Attach a listener to read the data at our posts reference
+        ref.child("causes").orderByKey().startAt(acct.getUid()).addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String key_cause= dataSnapshot.getKey();
+                System.out.println("Profile:ID"+dataSnapshot.getKey());
+                Cause cc= dataSnapshot.getValue(Cause.class);
+                System.out.println("Profile:Post "+cc.getUrl());
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+//Firebase ####################################################
+        //if the list is empty show the create cause button
+        if (causes==null){
+            btnCreate.setVisibility(View.VISIBLE);
+        }
+        else{
+            btnCreate.setVisibility(View.INVISIBLE);
+
+        }
+
+        CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
+        recyclerViewCauses.setAdapter(adapter);
         return view;
     }
 
@@ -113,4 +162,10 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 //        Toast.makeText(mContext, "Edit " + cause.getName(), Toast.LENGTH_SHORT).show();
 
     }
+    @OnClick(R.id.buttonCreate)  void createCause() {
+        Toast.makeText(mContext, "Create "  , Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), EditCauseActivity.class);
+        startActivity(intent);
+    }
+
 }

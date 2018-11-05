@@ -1,27 +1,20 @@
 package com.kantutapp.bloodhope.fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
-import com.kantutapp.bloodhope.LoginActivity;
 import com.kantutapp.bloodhope.R;
 import com.kantutapp.bloodhope.adapter.CarrouselPagerAdapter;
 import com.kantutapp.bloodhope.models.Cause;
 
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DonateFragment extends Fragment {
@@ -63,9 +56,8 @@ public class DonateFragment extends Fragment {
         causes.add(new Cause("Cause 7", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,5,"A+","Florida","AZ","user1","12/12/2018"));
 
 
-            CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes);
-            cardPager.setAdapter(carrouselPagerAdapter);
-
+        CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes);
+         cardPager.setAdapter(carrouselPagerAdapter);
 
 
 

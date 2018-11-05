@@ -80,15 +80,21 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
         switch (item.getItemId()) {
             case R.id.category_prices:
                 bottomNavigation.getMenu().getItem(TAB_PRICES).setChecked(true);
-                setFragment(new PricesFragment());
+               // setFragment(new PricesFragment());
+
+                PricesFragment pricesFragment = new PricesFragment();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, pricesFragment)
+                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                        .addToBackStack(null).commit();
                 break;
 
             case R.id.category_donate:
-                bottomNavigation.getMenu().getItem(TAB_DONATE).setChecked(true);
-                setFragment(new DonateFragment());
+                 bottomNavigation.getMenu().getItem(TAB_DONATE).setChecked(true);
+                 setFragment(new DonateFragment());
                 break;
 
             case R.id.category_profile:
+
                 bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
                 setFragment(new ProfileFragment());
                 break;
