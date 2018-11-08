@@ -13,8 +13,12 @@ import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
+
+    ArrayList<String> a = new ArrayList<String>();
     private ViewPager m_slideView;
     private LinearLayout m_taps; // layout inferior
     private TextView[] mDots;

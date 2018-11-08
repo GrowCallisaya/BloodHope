@@ -158,7 +158,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
     }
     @Override
     public void onBloodTypeClickListener(String bloodType) {
-        currentUser.setTypeOfBlood(bloodType);
+        currentUser.setBlood_type(bloodType);
 
 
     }
@@ -178,7 +178,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
                     etDeadline.getText().toString()+   " . " +
                     sCity.getSelectedItem().toString()+   " . " +
                     sHospital.getSelectedItem().toString()+   " . " +
-                    currentUser.getTypeOfBlood()+   " . " +
+                    currentUser.getBlood_type()+   " . " +
                     etStory.getText().toString());
             Cause currentCause = new Cause();
             currentCause.setTitle(etTitle.getText().toString());
@@ -187,7 +187,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
 
             int a1= Integer.parseInt(etDonations.getText().toString());
             currentCause.setTotal_donations(a1);
-            currentCause.setBlood_type( currentUser.getTypeOfBlood());
+            currentCause.setBlood_type( currentUser.getBlood_type());
             currentCause.setCity( sCity.getSelectedItem().toString());
             currentCause.setHospital(sHospital.getSelectedItem().toString());
             String c=""+acct.getUid();

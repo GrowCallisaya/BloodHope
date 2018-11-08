@@ -3,11 +3,11 @@ package com.kantutapp.bloodhope.adapter;
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar;
 import com.kantutapp.bloodhope.R;
@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class CarrouselPagerAdapter extends PagerAdapter {
 
@@ -36,6 +37,8 @@ public class CarrouselPagerAdapter extends PagerAdapter {
     TextViewMontserratBold cardPorcentage;
     @BindView(R.id.card_progress)
     RoundCornerProgressBar cardProgress;
+    @BindView(R.id.card_deadline_title)
+    TextViewMontserratBold cardDeadlineTitle;
     @BindView(R.id.card_cause)
     CardView cardCause;
 
@@ -43,12 +46,17 @@ public class CarrouselPagerAdapter extends PagerAdapter {
     private Context mContext;
     private ArrayList<Cause> mData;
     private LayoutInflater mLayoutInflater;
+    private OnItemCauseClickListener mListener;
 
-
-    public CarrouselPagerAdapter(final Context context, ArrayList<Cause> data) {
+    public CarrouselPagerAdapter(final Context context, ArrayList<Cause> data, OnItemCauseClickListener listener) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mData = data;
+        mListener = listener;
+    }
+
+    public interface OnItemCauseClickListener {
+        void onCauseClicked(Cause cause);
     }
 
     @Override
@@ -66,8 +74,18 @@ public class CarrouselPagerAdapter extends PagerAdapter {
         View view = mLayoutInflater.inflate(R.layout.item_causes_carrousel, container, false);
         ButterKnife.bind(this, view);
 
-        Cause cause = mData.get(position);
+        final Cause cause = mData.get(position);
+
         setupCauseCardUI(cause);
+
+        cardCause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("Clicked", "Si se clieckoe");
+                mListener.onCauseClicked(cause);
+            }
+        });
+
 
         container.addView(view);
         return view;
@@ -91,15 +109,22 @@ public class CarrouselPagerAdapter extends PagerAdapter {
         cardDeadline.setText(cause.getDeadline());
 
         Picasso.get()
-                .load(cause.getUrl())
+                .load(cause.getImage())
                 .placeholder(R.drawable.cause)
                 .into(cardImage);
 
         String porcentageValue = String.valueOf(cause.getNumber_donations())
-                +"/"+ String.valueOf(cause.getTotal_donations());
+                + "/" + String.valueOf(cause.getTotal_donations());
         cardPorcentage.setText(porcentageValue);
 
         cardProgress.setProgress((float) cause.getNumber_donations());
         cardProgress.setMax((float) cause.getTotal_donations());
+
     }
+
+    @OnClick(R.id.card_cause)
+    public void onCardClicked() {
+
+    }
+
 }

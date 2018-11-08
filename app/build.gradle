@@ -26,14 +26,15 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.1'
 
     //noinspection GradleCompatible
-    implementation 'com.google.firebase:firebase-auth:16.0.3'
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
 
     // Google SignIn
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
 
     //Database Firebase
-    implementation 'com.google.firebase:firebase-core:16.0.3'
-    implementation 'com.google.firebase:firebase-database:16.0.3'
+    implementation 'com.google.firebase:firebase-core:16.0.4'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.firebaseui:firebase-ui:2.0.1'
 
     // Facebook SignIn
     implementation 'com.facebook.android:facebook-login:[4,5)'
@@ -56,6 +57,14 @@ dependencies {
 
     // Rounded ProgressBar
     implementation 'com.akexorcist:RoundCornerProgressBar:2.0.3'
+
+    // Lombok
+    compileOnly "org.projectlombok:lombok:1.18.4"
+    annotationProcessor 'org.projectlombok:lombok:1.18.4'
+
+
+    // Custom Gauge
+    implementation 'pl.pawelkleczkowski.customgauge:CustomGauge:1.0.3'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

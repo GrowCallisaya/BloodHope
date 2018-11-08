@@ -12,7 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,14 +23,11 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.kantutapp.bloodhope.EditCauseActivity;
-import com.kantutapp.bloodhope.GeneralActivity;
 import com.kantutapp.bloodhope.R;
-import com.kantutapp.bloodhope.RegisterUserActivity;
 import com.kantutapp.bloodhope.adapter.CausesAdapter;
 import com.kantutapp.bloodhope.models.Cause;
+import com.kantutapp.bloodhope.utils.Constants;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,6 +46,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     @BindView(R.id.profile_thumbnail) CircleImageView circleImageViewThumbnail;
     @BindView(R.id.recycler_causes) RecyclerView recyclerViewCauses;
     @BindView(R.id.buttonCreate)    FancyButton btnCreate;
+    @BindView(R.id.list_causes_user) RelativeLayout listCuasesUses;
     Context mContext;
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
     DatabaseReference ref = firebaseDatabase.getReference(); // cause
@@ -67,65 +65,80 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         mContext = view.getContext();
         ButterKnife.bind(this, view);
 
-
         FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
         if (acct != null) {
             setupProfileUI(acct);
+            setupListOfCauses(acct);
         }
 
 
+        return view;
+    }
 
+    private void setupListOfCauses(FirebaseUser acct) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewCauses.setLayoutManager(layoutManager);
 
+        final CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
+        recyclerViewCauses.setAdapter(adapter);
 
-//Firebase ####################################################
-        // Get a reference to our posts
-        // Attach a listener to read the data at our posts reference
-        ref.child("causes").orderByKey().startAt(acct.getUid()).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String key_cause= dataSnapshot.getKey();
-                System.out.println("Profile:ID"+dataSnapshot.getKey());
-                Cause cc= dataSnapshot.getValue(Cause.class);
-                System.out.println("Profile:Post "+cc.getUrl());
 
-            }
+        updateUI();
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+        ref.child(Constants.CAUSES)
+                .orderByChild(Constants.CAUSES_USERID)
+                .equalTo(acct.getUid())
+                .addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        Cause cause = dataSnapshot.getValue(Cause.class);
+                        causes.add(cause);
+                        adapter.notifyDataSetChanged();
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                        updateUI();
 
-            }
+                    }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    @Override
+                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        adapter.notifyDataSetChanged();
+                        updateUI();
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
-        });
 
-//Firebase ####################################################
-        //if the list is empty show the create cause button
-        if (causes==null){
+                    }
+
+                    @Override
+                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+
+    }
+
+    private void updateUI() {
+        if (causes == null || causes.isEmpty()){
             btnCreate.setVisibility(View.VISIBLE);
+            listCuasesUses.setVisibility(View.GONE);
         }
         else{
-            btnCreate.setVisibility(View.INVISIBLE);
-
+            btnCreate.setVisibility(View.GONE);
+            listCuasesUses.setVisibility(View.VISIBLE);
         }
-
-        CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
-        recyclerViewCauses.setAdapter(adapter);
-        return view;
     }
 
     private void setupProfileUI(FirebaseUser acct) {

@@ -64,7 +64,7 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
             // Add the fragment to the 'fragment_container' FrameLayout
 
             bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
-            bottomNavigation.getMenu().getItem(TAB_PROFILE).setIcon(R.drawable.ic_blood);
+            bottomNavigation.getMenu().getItem(TAB_PROFILE).setIcon(R.drawable.ic_profile);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.fragment_container, profileFragment).commit();
 
@@ -80,12 +80,12 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
         switch (item.getItemId()) {
             case R.id.category_prices:
                 bottomNavigation.getMenu().getItem(TAB_PRICES).setChecked(true);
-               // setFragment(new PricesFragment());
+                setFragment(new PricesFragment());
 
-                PricesFragment pricesFragment = new PricesFragment();
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, pricesFragment)
-                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                        .addToBackStack(null).commit();
+//                PricesFragment pricesFragment = new PricesFragment();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, pricesFragment)
+//                        .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+//                        .addToBackStack(null).commit();
                 break;
 
             case R.id.category_donate:
@@ -106,6 +106,7 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.fragment_container, fragment);
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -7,25 +7,27 @@ public class User implements Parcelable {
 
     String name;
     String photo;
-    String phoneNumber;
-    String typeOfBlood;
+    String email;
+    String phone_number;
+    String blood_type;
+    int number_donations;
+
 
     public User() {
     }
 
-    public User(  String name, String photo, String phoneNumber, String typeOfBlood) {
-
+    public User(String name, String photo, String phone_number, String blood_type) {
         this.name = name;
         this.photo = photo;
-        this.phoneNumber = phoneNumber;
-        this.typeOfBlood = typeOfBlood;
+        this.phone_number = phone_number;
+        this.blood_type = blood_type;
     }
 
     protected User(Parcel in) {
         name = in.readString();
         photo = in.readString();
-        phoneNumber = in.readString();
-        typeOfBlood = in.readString();
+        phone_number = in.readString();
+        blood_type = in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -56,20 +58,20 @@ public class User implements Parcelable {
         this.photo = photo;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getPhone_number() {
+        return phone_number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
     }
 
-    public String getTypeOfBlood() {
-        return typeOfBlood;
+    public String getBlood_type() {
+        return blood_type;
     }
 
-    public void setTypeOfBlood(String typeOfBlood) {
-        this.typeOfBlood = typeOfBlood;
+    public void setBlood_type(String blood_type) {
+        this.blood_type = blood_type;
     }
 
 
@@ -83,7 +85,7 @@ public class User implements Parcelable {
 
         dest.writeString(name);
         dest.writeString(photo);
-        dest.writeString(phoneNumber);
-        dest.writeString(typeOfBlood);
+        dest.writeString(phone_number);
+        dest.writeString(blood_type);
     }
 }

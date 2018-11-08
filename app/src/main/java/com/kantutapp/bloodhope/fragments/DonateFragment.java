@@ -1,23 +1,46 @@
 package com.kantutapp.bloodhope.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.firebase.ui.database.FirebaseListAdapter;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+import com.kantutapp.bloodhope.DetailCauseActivity;
+import com.kantutapp.bloodhope.EditCauseActivity;
 import com.kantutapp.bloodhope.R;
 import com.kantutapp.bloodhope.adapter.CarrouselPagerAdapter;
+import com.kantutapp.bloodhope.adapter.CausesAdapter;
 import com.kantutapp.bloodhope.models.Cause;
+import com.kantutapp.bloodhope.models.CauseResponse;
+import com.kantutapp.bloodhope.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class DonateFragment extends Fragment {
+public class DonateFragment extends Fragment implements CarrouselPagerAdapter.OnItemCauseClickListener {
 
 
     @BindView(R.id.card_pager) HorizontalInfiniteCycleViewPager cardPager;
@@ -28,11 +51,15 @@ public class DonateFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
     }
 
     public View mView;
     public Context mContext;
+
+    public ArrayList<Cause> causes = new ArrayList<>();
+
+    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+    DatabaseReference ref = firebaseDatabase.getReference();
 
 
     @Override
@@ -43,22 +70,40 @@ public class DonateFragment extends Fragment {
         unbinder = ButterKnife.bind(this, mView);
 
 
-        // TODO Get data from Firebase
-        ArrayList<Cause> causes = new ArrayList<>();
 
-        causes.add(new Cause("Cause 1", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription This is some decription This is some decription This is some decription This is some decription",3,3,"A+","Florida","AZ","user1","12/12/2018"));
-
-        causes.add(new Cause("Cause 2", "https://hmc.pennstatehealth.org/documents/11396232/11425455/Patients+Families+and+Services/28490a49-bc28-4cb9-a3d3-b483f60385a7?t=1479729028222", "","",3,10,"A+","Florida","AZ","user1","12/12/2018"));
-        causes.add(new Cause("Cause 3", "https://secure.i.telegraph.co.uk/multimedia/archive/02122/patientBed_2122575b.jpg", "","",3,10,"A+","Florida","AZ","user1","12/12/2018"));
-        causes.add(new Cause("Cause 4", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","",3,100,"A+","Florida","AZ","user1","12/12/2018"));
-        causes.add(new Cause("Cause 5", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,10,"A+","Florida","AZ","user1","12/12/2018"));
-        causes.add(new Cause("Cause 6", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,7,"A+","Florida","AZ","user1","12/12/2018"));
-        causes.add(new Cause("Cause 7", "http://www.cheloproject.ca/wp-content/uploads/2017/03/patient-family-member-hospital-bed-1.jpg", "","This is some decription",3,5,"A+","Florida","AZ","user1","12/12/2018"));
+        CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes, this);
+        cardPager.setAdapter(carrouselPagerAdapter);
 
 
-        CarrouselPagerAdapter carrouselPagerAdapter = new CarrouselPagerAdapter(getContext(), causes);
-         cardPager.setAdapter(carrouselPagerAdapter);
+        ref.child(Constants.CAUSES).orderByKey().addChildEventListener(new ChildEventListener() {
 
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Cause cc= dataSnapshot.getValue(Cause.class);
+                causes.add(cc);
+                if (cardPager !=null)
+                    cardPager.notifyDataSetChanged();
+            }
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (cardPager != null)
+                    cardPager.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -67,9 +112,27 @@ public class DonateFragment extends Fragment {
 
 
     @Override
+    public void onStart() {
+        super.onStart();
+
+
+
+    }
+
+
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
 
+    @Override
+    public void onCauseClicked(Cause cause) {
+
+        Log.e("Clicked", "Si se clieckoe 22");
+        Intent intent = new Intent(mContext, DetailCauseActivity.class);
+        intent.putExtra(Constants.CAUSE, cause);
+        startActivity(intent);
+    }
 }

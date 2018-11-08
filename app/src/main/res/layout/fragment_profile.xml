@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context="com.kantutapp.bloodhope.fragments.ProfileFragment">
 
@@ -56,40 +55,50 @@
         android:gravity="center_horizontal"
         android:layout_margin="16dp"
         android:text="My Causes"/>
-    <mehdi.sakout.fancybuttons.FancyButton
-        android:id="@+id/buttonCreate"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        android:gravity="center"
-        android:paddingBottom="12dp"
-        android:paddingTop="12dp"
-        android:layout_marginBottom="20dp"
-        fancy:fb_defaultColor="#ff5353"
-        fancy:fb_focusColor="#ff4d4d"
-        fancy:fb_radius="20dp"
-        fancy:fb_text="CREATE CAUSE"
-        fancy:fb_textColor="#ffffff"
-        fancy:fb_textFontRes="@font/montserrat" />
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
+        android:layout_height="match_parent">
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!--Button Create Cause -->
 
-
-            <!--Recycler of Causes-->
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_causes"
+            <RelativeLayout
+                android:id="@+id/list_causes_user"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="vertical"/>
+                android:layout_height="wrap_content">
+                <!--Button Create Cause -->
 
-        </RelativeLayout>
-    </ScrollView>
+
+                <!--Recycler of Causes-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler_causes"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scrollbars="vertical"/>
+
+            </RelativeLayout>
+        </ScrollView>
+
+        <mehdi.sakout.fancybuttons.FancyButton
+            android:id="@+id/buttonCreate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            android:gravity="center"
+            android:padding="12dp"
+            android:paddingTop="12dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            fancy:fb_defaultColor="#3CADFF"
+            fancy:fb_focusColor="#5ab9ff"
+            fancy:fb_radius="20dp"
+            fancy:fb_text="CREATE CAUSE"
+            fancy:fb_textColor="#ffffff"
+            fancy:fb_textFontRes="@font/montserrat" />
+    </RelativeLayout>
+
 
 
 
