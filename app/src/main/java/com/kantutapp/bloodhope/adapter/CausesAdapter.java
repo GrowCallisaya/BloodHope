@@ -70,9 +70,9 @@ public class CausesAdapter extends RecyclerView.Adapter<CausesAdapter.CauseViewH
 
     public class CauseViewHolder extends RecyclerView.ViewHolder{
 
-        @BindView(R.id.iv_cause) ImageView imageViewCause;
-        @BindView(R.id.btn_delete_cause) FancyButton btnDeleteCause;
-        @BindView(R.id.btn_edit_cause) FancyButton btnEditCause;
+        @BindView(R.id.iv_cause)         public ImageView imageViewCause;
+        @BindView(R.id.btn_delete_cause) public FancyButton btnDeleteCause;
+        @BindView(R.id.btn_edit_cause)   public FancyButton btnEditCause;
 
 
         public CauseViewHolder(View itemView) {

@@ -19,11 +19,14 @@
         app:contentInsetRight="0dp"
         app:contentInsetEnd="0dp"
         android:elevation="4dp"
+        android:background="@color/colorWhite"
         android:minHeight="?attr/actionBarSize">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
+
 
             <!-- APP LOGO-->
             <LinearLayout
@@ -59,15 +62,28 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-        android:id="@+id/card_pager"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:icvp_center_page_scale_offset="10dp"
-        app:icvp_max_page_scale="0.9"
-        app:icvp_medium_scaled="true"
-        app:icvp_min_page_scale="0.7"
-        app:icvp_min_page_scale_offset="5dp"
-        app:icvp_scroll_duration="800"/>
+        android:layout_height="match_parent">
+
+        <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
+            android:id="@+id/card_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:icvp_center_page_scale_offset="10dp"
+            app:icvp_max_page_scale="0.9"
+            app:icvp_medium_scaled="true"
+            app:icvp_min_page_scale="0.7"
+            app:icvp_min_page_scale_offset="5dp"
+            app:icvp_scroll_duration="800"/>
+
+        <ProgressBar
+            android:id="@+id/donate_progressbar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
 
 </LinearLayout>

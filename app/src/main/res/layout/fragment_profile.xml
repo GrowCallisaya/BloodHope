@@ -68,7 +68,12 @@
                 android:layout_height="wrap_content">
                 <!--Button Create Cause -->
 
-
+                <ProgressBar
+                    android:id="@+id/profile_progressbar"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
                 <!--Recycler of Causes-->
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycler_causes"

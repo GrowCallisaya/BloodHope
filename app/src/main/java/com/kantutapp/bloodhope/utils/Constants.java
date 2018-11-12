@@ -10,9 +10,17 @@ public class Constants {
 
 
     public static final String CAUSE = "Cause";
-    public static final String CAUSES = "causes";
     public static final String CAUSES_USERID = "user_id";
 
-    public static final String HOSPITAL = "causes";
+    // Firebase References
+    public static final String USERS = "users";
+    public static final String HOSPITAL = "hospitals";
+    public static final String CAUSES = "causes";
+    public static final String CITY = "city";
+    public static final String USERS_COLLABORATORS = "users_collaborators";
+
+
+    public static final String MODE_EDIT   = "EDIT";
+    public static final String MODE_VIEW = "VIEW";
 
 }

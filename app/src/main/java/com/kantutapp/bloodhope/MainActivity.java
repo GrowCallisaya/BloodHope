@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -35,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
         m_btnNext = findViewById(R.id.button2next);
         m_btnPrev = findViewById(R.id.button1prev);
 
+//        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
         if (acct != null){
             startActivity(new Intent(MainActivity.this, GeneralActivity.class));
             finish();
-            return;
         }
 
         sliderAdapter = new SlideWelcomeAdapter(this);

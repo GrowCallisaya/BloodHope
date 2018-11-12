@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.kantutapp.bloodhope.adapter.BloodAdapter;
 import com.kantutapp.bloodhope.models.Cause;
 import com.kantutapp.bloodhope.models.User;
+import com.kantutapp.bloodhope.utils.Constants;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -89,13 +90,9 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
         recyclerBloodTypes.setLayoutManager(gridLayoutManager);
 
 
-        // Attach a listener to read the data at our posts reference
-        ref.child("city").addValueEventListener(new ValueEventListener() {
+        ref.child(Constants.CITY).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Is better to use a List, because you don't know the size
-                // of the iterator returned by dataSnapshot.getChildren() to
-                // initialize the array
                 final List<String> areas = new ArrayList<String>();
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
@@ -115,13 +112,9 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
             }
         });
 
-        // Attach a listener to read the data at our posts reference
-        ref2.child("hospitals").addValueEventListener(new ValueEventListener() {
+        ref2.child(Constants.HOSPITAL).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Is better to use a List, because you don't know the size
-                // of the iterator returned by dataSnapshot.getChildren() to
-                // initialize the array
                 final List<String> areas = new ArrayList<String>();
 
                 for (DataSnapshot areaSnapshot: dataSnapshot.getChildren()) {
