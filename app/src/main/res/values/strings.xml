@@ -58,5 +58,6 @@
     <string name="app_name_hope">HOPE</string>
     <!--Menu Activity General-->
     <string name="menu_create">CREATE CAUSE</string>
+    <string name="error_birth_date">Error Date</string>
 
 </resources>

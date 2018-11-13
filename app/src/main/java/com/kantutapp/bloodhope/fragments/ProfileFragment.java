@@ -140,7 +140,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
         profileProgressbar.setVisibility(View.VISIBLE);
         btnCreate.setEnabled(false);
-
+        btnCreate.setVisibility(View.INVISIBLE);
 
 
         ChildEventListener eventListener = new ChildEventListener() {
@@ -150,6 +150,8 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
                 cause.setKey(dataSnapshot.getKey());
                 causes.add(cause);
                 adapter.notifyDataSetChanged();
+                profileProgressbar.setVisibility(View.INVISIBLE);
+                btnCreate.setVisibility(View.VISIBLE);
                 btnCreate.setEnabled(true);
             }
 

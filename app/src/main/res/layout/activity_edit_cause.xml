@@ -43,13 +43,15 @@
             android:padding="12dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
-            android:hint="Name" />
+            android:hint="Name"
+           />
         <EditText
             android:id="@+id/et_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
             android:inputType= "phone"
+            android:digits="1234567890"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
             android:hint="Mobile Number (WhatsApp)" />
@@ -59,6 +61,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:padding="12dp"
+            android:digits="1234567890"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
             android:hint="Number of Donations" />
@@ -76,15 +79,18 @@
 
         <EditText
             android:id="@+id/et_deadline"
-            android:hint="DD/MM/YYYY "
+            android:hint="DD-MM-YYYY "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="date"
             android:padding="12dp"
+            android:digits="1234567890-"
+            android:maxLength="10"
             android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
             />
+
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
