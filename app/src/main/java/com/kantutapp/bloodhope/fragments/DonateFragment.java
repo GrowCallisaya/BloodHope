@@ -35,11 +35,10 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
 
     @BindView(R.id.card_pager)
     HorizontalInfiniteCycleViewPager cardPager;
-    // @BindView(R.id.buttonCreate) Button btnCreate;
-    Unbinder unbinder;
     @BindView(R.id.donate_progressbar)
     ProgressBar progressBar;
 
+    Unbinder unbinder;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +50,6 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
 
     public ArrayList<Cause> causes = new ArrayList<>();
 
-    FirebaseDatabase firebaseDatabase;
     DatabaseReference mDatabase;
 
 

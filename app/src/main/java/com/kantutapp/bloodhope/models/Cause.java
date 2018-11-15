@@ -3,9 +3,6 @@ package com.kantutapp.bloodhope.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Cause implements Parcelable {
     public String key;
     public String title;
@@ -15,14 +12,14 @@ public class Cause implements Parcelable {
     public int number_donations;
     public int total_donations;
     public String blood_type;
-    public String hospital;
-    public String city;
+    public String hospital_id;
+    public String city_id;
     public String user_id;
     public String startdate;
 
 
 
-    public Cause(String key,String title, String image, String deadline, String description, int number_donations, int total_donations, String blood_type, String hospital, String city, String user_id, String startdate) {
+    public Cause(String key, String title, String image, String deadline, String description, int number_donations, int total_donations, String blood_type, String hospital_id, String city_id, String user_id, String startdate) {
         this.key = key;
         this.title = title;
         this.image = image;
@@ -31,8 +28,8 @@ public class Cause implements Parcelable {
         this.number_donations = number_donations;
         this.total_donations = total_donations;
         this.blood_type = blood_type;
-        this.hospital = hospital;
-        this.city = city;
+        this.hospital_id = hospital_id;
+        this.city_id = city_id;
         this.user_id = user_id;
         this.startdate = startdate;
     }
@@ -50,8 +47,8 @@ public class Cause implements Parcelable {
         number_donations = in.readInt();
         total_donations = in.readInt();
         blood_type = in.readString();
-        hospital = in.readString();
-        city = in.readString();
+        hospital_id = in.readString();
+        city_id = in.readString();
         user_id = in.readString();
         startdate = in.readString();
     }
@@ -84,8 +81,8 @@ public class Cause implements Parcelable {
         dest.writeInt(number_donations);
         dest.writeInt(total_donations);
         dest.writeString(blood_type);
-        dest.writeString(hospital);
-        dest.writeString(city);
+        dest.writeString(hospital_id);
+        dest.writeString(city_id);
         dest.writeString(user_id);
         dest.writeString(startdate);
     }
@@ -147,20 +144,20 @@ public class Cause implements Parcelable {
         this.blood_type = blood_type;
     }
 
-    public String getHospital() {
-        return hospital;
+    public String getHospital_id() {
+        return hospital_id;
     }
 
-    public void setHospital(String hospital) {
-        this.hospital = hospital;
+    public void setHospital_id(String hospital_id) {
+        this.hospital_id = hospital_id;
     }
 
-    public String getCity() {
-        return city;
+    public String getCity_id() {
+        return city_id;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCity_id(String city_id) {
+        this.city_id = city_id;
     }
 
     public String getUser_id() {

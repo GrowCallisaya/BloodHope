@@ -44,12 +44,13 @@
     <string name="facebook_app_id">771140329892853</string>
     <string name="fb_login_protocol_scheme">fb771140329892853</string>
 
+    <!--Mapbox-->
+    <string name="mapbox_access_token">pk.eyJ1IjoiZ3Jvd2NhbGxpc2F5YSIsImEiOiJjam9pOGlvZXcwNms5M3Bxc2F2enF4bjE2In0.23FP_ZfBL4LaldqAZdynow</string>
 
     <string name="blood_category_prices">Prices</string>
     <string name="blood_category_donate">Donate</string>
     <string name="blood_category_profile">Profile</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="logout">Logout</string>
 
@@ -59,5 +60,11 @@
     <!--Menu Activity General-->
     <string name="menu_create">CREATE CAUSE</string>
     <string name="error_birth_date">Error Date</string>
+
+    <!--Donation Activity-->
+    <string name="donate_main_title">Thanks for your help!</string>
+    <string name="donate_place_title">Place to go</string>
+    <string name="donate_schedule_title">Schedules</string>
+    <string name="donate_contacts_title">Contacts</string>
 
 </resources>

@@ -8,19 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 
-import com.github.lguipeng.library.animcheckbox.AnimCheckBox;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.kantutapp.bloodhope.R;
-import com.kantutapp.bloodhope.models.Collaborator;
-import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.models.UserCollaborator;
-import com.kantutapp.bloodhope.utils.Constants;
 import com.kantutapp.bloodhope.utils.TextViewMontserratRegular;
 import com.squareup.picasso.Picasso;
 

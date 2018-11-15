@@ -160,7 +160,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
      * **/
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
         Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
-        // TODO(1) showProgressDialog();
+        // TODO(2) showProgressDialog();
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         signInWithCredential(credential);
     }

@@ -21,7 +21,7 @@
         android:paddingBottom="12dp"
         android:paddingTop="12dp"
         fancy:fb_defaultColor="@color/colorAccent"
-        fancy:fb_focusColor="#000000"
+        fancy:fb_focusColor="#ff5375"
         fancy:fb_borderWidth="1dp"
         fancy:fb_borderColor="@color/colorAccent"
         fancy:fb_radius="30dp"

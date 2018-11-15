@@ -7,7 +7,7 @@ public class User implements Parcelable {
 
     String name;
     String photo;
-    String email;;
+    String email;
     String phone_number;
     String blood_type;
     int number_donations;
@@ -16,12 +16,13 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public User(String name, String photo, String phone_number, String blood_type, int number_donations) {
+    public User(String name, String photo, String phone_number, String blood_type, int number_donations, String email) {
         this.name = name;
         this.photo = photo;
         this.phone_number = phone_number;
         this.blood_type = blood_type;
         this.number_donations = number_donations;
+        this.email= email;
     }
 
     protected User(Parcel in) {
@@ -30,6 +31,7 @@ public class User implements Parcelable {
         phone_number = in.readString();
         blood_type = in.readString();
         number_donations= in.readInt();
+        email= in.readString();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -84,6 +86,14 @@ public class User implements Parcelable {
         this.number_donations = number_donations;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -96,5 +106,6 @@ public class User implements Parcelable {
         dest.writeString(phone_number);
         dest.writeString(blood_type);
         dest.writeInt(number_donations);
+        dest.writeString(email);
     }
 }

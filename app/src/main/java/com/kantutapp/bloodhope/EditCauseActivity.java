@@ -1,7 +1,5 @@
 package com.kantutapp.bloodhope;
 
-import android.support.design.widget.TextInputEditText;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -50,8 +48,8 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
     //initializing firebase authentication object
     private User currentUser = new User();
     FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference ref = firebaseDatabase.getReference(); //city
-    DatabaseReference ref2 = firebaseDatabase.getReference();//hospital
+    DatabaseReference ref = firebaseDatabase.getReference(); //city_id
+    DatabaseReference ref2 = firebaseDatabase.getReference();//hospital_id
     FirebaseUser firebaseUser;
     FirebaseUser acct = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -184,8 +182,8 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
             int a1 = Integer.parseInt(etDonations.getText().toString());
             currentCause.setTotal_donations(a1);
             currentCause.setBlood_type(currentUser.getBlood_type());
-            currentCause.setCity(sCity.getSelectedItem().toString());
-            currentCause.setHospital(sHospital.getSelectedItem().toString());
+            currentCause.setCity_id(sCity.getSelectedItem().toString());
+            currentCause.setHospital_id(sHospital.getSelectedItem().toString());
             String c = "" + acct.getUid();
             currentCause.setUser_id(c);
             Calendar b = Calendar.getInstance();

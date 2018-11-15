@@ -128,8 +128,8 @@ public class DetailCauseActivity extends AppCompatActivity {
             detailCauseTitle.setText(cause.getTitle());
             detailCauseDescription.setText(cause.getDescription());
             detailCauseBloodType.setText(cause.getBlood_type());
-            detailCauseCityDesc.setText(cause.getCity());
-            detailCauseHospitalDesc.setText(cause.getHospital());
+            detailCauseCityDesc.setText(cause.getCity_id());
+            detailCauseHospitalDesc.setText(cause.getHospital_id());
 
             // Gauge
             int valueOfDonations = 0;
@@ -160,7 +160,9 @@ public class DetailCauseActivity extends AppCompatActivity {
                             final Collaborator collaborator = dataSnapshot.getValue(Collaborator.class);
 
                             // Get the User Info from Collaborator
-                            mDatabase.child(Constants.USERS).child(collaborator.getId_user()).addValueEventListener(new ValueEventListener() {
+                            mDatabase.child(Constants.USERS)
+                                    .child(collaborator.getId_user())
+                                    .addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     User user = dataSnapshot.getValue(User.class);
@@ -219,7 +221,9 @@ public class DetailCauseActivity extends AppCompatActivity {
     @OnClick(R.id.btn_donate)
     public void donateCause() {
         if (cause != null) {
-
+            Intent intentToDonateActivity = new Intent(this, DonateActivity.class);
+            intentToDonateActivity.putExtra(Constants.CAUSE, cause);
+            startActivity(intentToDonateActivity);
         }
     }
 
