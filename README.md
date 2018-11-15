@@ -6,7 +6,10 @@ This is an app that is participating in the IEEEmadC challenge.
 
 ######  Development Components
 - Firebase Authentication
-- Google and Facebook API
+- Google and Facebook API Authentication
+- MapBox 
+- Whatsapp and Email Intent Builders
+
 
 ######  UI Components 
 - Tab Bottom Navigation Widget
@@ -15,6 +18,9 @@ This is an app that is participating in the IEEEmadC challenge.
 - FancyButtons 
 - CircleImageView
 - Custom TextView with custom `Montserrat Font`
+- RoundCornerProgressBar
+- CustomGauge for Progress
+- Infinitecycleviewpager
 
 
 
@@ -30,6 +36,7 @@ In order to build this project follow the next steps:
     <string name="fb_login_protocol_scheme">fb[YOUR_FACEBOOK_ID]</string>
 ```
 
+ 
 
 ## Note
 
