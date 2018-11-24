@@ -1,69 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context=".EditCauseActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/create_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite"
+        app:layout_collapseMode="pin">
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Create Cause"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"/>
+    </android.support.v7.widget.Toolbar>
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp">
+        android:layout_height="wrap_content">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="30dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:orientation="vertical">
 
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="16dp"
+            android:paddingBottom="10dp"
+            android:text="Personal data"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
+            android:id="@+id/et_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/editTextForm"
+            android:hint="Name" />
+        <EditText
+            android:id="@+id/et_mobile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType= "phone"
+            android:digits="1234567890"
+            style="@style/editTextForm"
+            android:hint="Mobile Number (WhatsApp)" />
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/login_background"
             android:paddingBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Create a Cause"
+            android:text="Number of Donations"
             android:textStyle="bold"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textColor="#000"/>
-        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:paddingBottom="10dp"
-            android:text="Enter your personal data"/>
-        <EditText
-            android:id="@+id/et_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_edit_text"
-            android:hint="Name"
-           />
-        <EditText
-            android:id="@+id/et_mobile"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:inputType= "phone"
-            android:digits="1234567890"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_edit_text"
-            android:hint="Mobile Number (WhatsApp)" />
         <EditText
             android:id="@+id/et_donations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
-            android:padding="12dp"
             android:digits="1234567890"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_edit_text"
+            style="@style/editTextForm"
             android:hint="Number of Donations" />
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
@@ -82,12 +96,10 @@
             android:hint="DD-MM-YYYY "
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            style="@style/editTextForm"
             android:inputType="date"
-            android:padding="12dp"
             android:digits="1234567890-"
             android:maxLength="10"
-            android:layout_marginBottom="10dp"
             android:background="@drawable/custom_edit_text"
             />
 
@@ -104,7 +116,10 @@
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner"></Spinner>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            style="@style/spinnerForm"
+            android:id="@+id/spinner"/>
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -119,7 +134,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spinner2"
-            ></Spinner>
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            style="@style/spinnerForm"/>
+
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -133,9 +151,9 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_blood_types"
-            android:background="@drawable/custom_edit_text"
+            android:background="@color/colorWhite"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="100dp"/>
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -146,23 +164,11 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/login_background"
-            android:paddingBottom="10dp"
-            android:layout_centerHorizontal="true"
-            android:text="Title of story"
-            android:textStyle="bold"
-            android:textSize="15sp"
-            android:textColor="#000"/>
         <EditText
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/custom_edit_text"
+            style="@style/editTextForm"
             android:hint="Title" />
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
             android:layout_width="wrap_content"
@@ -170,7 +176,7 @@
             android:layout_alignBottom="@+id/login_background"
             android:paddingBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Description of story"
+            android:text="Tell us your Story"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
@@ -179,9 +185,11 @@
             android:layout_width="match_parent"
             android:layout_height="130dp"
             android:ems="10"
+            android:textSize="12sp"
             android:hint="What do you want to say to people! "
-
             android:background="@drawable/custom_edit_text"
+            android:paddingLeft="25dp"
+            android:paddingRight="10dp"
             android:inputType="textMultiLine" />
 
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
@@ -195,21 +203,39 @@
             android:textSize="15sp"
             android:textColor="#000"/>
 
-        <mehdi.sakout.fancybuttons.FancyButton
-            android:id="@+id/btn_photo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            android:layout_marginBottom="12dp"
-            android:gravity="center"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
-            fancy:fb_defaultColor="#ff5353"
-            fancy:fb_focusColor="#ff4d4d"
-            fancy:fb_radius="20dp"
-            fancy:fb_text="Photo"
-            fancy:fb_textColor="#ffffff"
-            fancy:fb_textFontRes="@font/montserrat" />
+
+            <ImageView
+                android:id="@+id/iv_cause_photo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:visibility="gone" />
+            <mehdi.sakout.fancybuttons.FancyButton
+                android:id="@+id/btn_photo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="8dp"
+                fancy:fb_defaultColor="#ffffff"
+                fancy:fb_focusColor="#ff4d4d"
+                fancy:fb_borderColor="#A2A2A2"
+                fancy:fb_borderWidth="1dp"
+                fancy:fb_radius="25dp"
+                fancy:fb_text=""
+                fancy:fb_iconResource="@drawable/ic_camera" />
+
+
+        </RelativeLayout>
+
+
+
         <mehdi.sakout.fancybuttons.FancyButton
             android:id="@+id/btn_submit"
             android:layout_width="match_parent"
@@ -224,8 +250,8 @@
             fancy:fb_textColor="#ffffff"
             fancy:fb_textFontRes="@font/montserrat"/>
 
-
-
     </LinearLayout>
     </ScrollView>
-</android.support.constraint.ConstraintLayout>
+
+
+</LinearLayout>

@@ -2,17 +2,21 @@ package com.kantutapp.bloodhope.adapter;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.kantutapp.bloodhope.R;
 import com.kantutapp.bloodhope.models.UserCollaborator;
 import com.kantutapp.bloodhope.utils.TextViewMontserratRegular;
 import com.squareup.picasso.Picasso;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import java.util.List;
 
@@ -24,12 +28,18 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
 
     public List<UserCollaborator> mData;
     public Context mContext;
+    public onChechboxHandler mChechboxHandler;
 
-    public CollaboratorAdapter(List<UserCollaborator> data, Context context) {
+
+    public CollaboratorAdapter(List<UserCollaborator> data, Context context,  onChechboxHandler handler) {
         mData = data;
         mContext = context;
+        mChechboxHandler = handler;
     }
 
+    public interface onChechboxHandler{
+        void onCheckBoxSelectedListener(UserCollaborator userCollaborator);
+    }
 
     @NonNull
     @Override
@@ -81,8 +91,28 @@ public class CollaboratorAdapter extends RecyclerView.Adapter<CollaboratorAdapte
             collaboratorName.setText(userCollaborator.getName());
             collaboratorCity.setText(userCollaborator.getCity());
             collaboratorStatus.setChecked(userCollaborator.getStatus());
-
+            if (collaboratorStatus.isChecked()){
+                collaboratorStatus.setEnabled(false);
+            }
+            collaboratorStatus.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+                    if (isChecked){
+                        new LovelyStandardDialog(mContext, LovelyStandardDialog.ButtonLayout.VERTICAL)
+                                .setTopColorRes(R.color.colorAccent)
+                                .setButtonsColorRes(R.color.colorAccent)
+                                .setIcon(R.drawable.ic_profile)
+                                .setIconTintColor(Color.WHITE)
+                                .setTitle("Add Collaborator")
+                                .setMessage("Are you sure you are going to add this collaborator?")
+                                .setPositiveButton("YES, I AM", v -> {
+                                    Log.e("","cauusea");
+                                    mChechboxHandler.onCheckBoxSelectedListener(userCollaborator);
+                                })
+                                .setNegativeButton("NOT YET", v ->{
+                                    buttonView.setChecked(false);
+                                })
+                                .show();
+                    }
+            });
         }
-
     }
 }

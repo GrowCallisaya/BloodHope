@@ -47,6 +47,11 @@
     <!--Mapbox-->
     <string name="mapbox_access_token">pk.eyJ1IjoiZ3Jvd2NhbGxpc2F5YSIsImEiOiJjam9pOGlvZXcwNms5M3Bxc2F2enF4bjE2In0.23FP_ZfBL4LaldqAZdynow</string>
 
+    <!--FCM Channer-->
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="default_notification_channel_name" translatable="true">BloodHope</string>
+
+
     <string name="blood_category_prices">Prices</string>
     <string name="blood_category_donate">Donate</string>
     <string name="blood_category_profile">Profile</string>

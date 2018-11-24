@@ -1,6 +1,7 @@
 package com.kantutapp.bloodhope.models;
 
 public class UserCollaborator {
+    String key;
     String photo;
     String name;
     String city;
@@ -10,11 +11,20 @@ public class UserCollaborator {
     }
 
 
-    public UserCollaborator(String photo, String name, String city, Boolean status) {
+    public UserCollaborator(String key, String photo, String name, String city, Boolean status) {
+        this.key = key;
         this.photo = photo;
         this.name = name;
         this.city = city;
         this.status = status;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getPhoto() {

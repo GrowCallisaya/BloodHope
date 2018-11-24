@@ -2,22 +2,18 @@ package com.kantutapp.bloodhope.fragments;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Binder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -38,6 +34,7 @@ import com.kantutapp.bloodhope.models.Cause;
 import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.utils.Constants;
 import com.kantutapp.bloodhope.viewholder.CauseViewHolder;
+import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -49,6 +46,8 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import de.hdodenhof.circleimageview.CircleImageView;
 import mehdi.sakout.fancybuttons.FancyButton;
+
+import static com.kantutapp.bloodhope.utils.Constants.MODE_CREATE;
 
 public class ProfileFragment extends Fragment implements CausesAdapter.OnItemClickHandler {
 
@@ -74,7 +73,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
     private DatabaseReference mDatabase;
 
-    List<Cause> causes = new ArrayList<>();
+    List<Cause> causeArrayList = new ArrayList<>();
     private FirebaseRecyclerAdapter<Cause, CauseViewHolder> mAdapter;
     private LinearLayoutManager mManager;
     public  Unbinder binder;
@@ -95,13 +94,6 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         mContext = view.getContext();
         binder = ButterKnife.bind(this, view);
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (firebaseUser != null) {
-            setupProfileUI(firebaseUser);
-            setupListOfCauses(firebaseUser);
-        }
-
         return view;
     }
 
@@ -110,7 +102,11 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (firebaseUser != null) {
+            setupProfileUI(firebaseUser);
+            setupListOfCauses(firebaseUser);
+        }
     }
 
     @Override
@@ -135,7 +131,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         recyclerViewCauses.setLayoutManager(layoutManager);
 
-        final CausesAdapter adapter = new CausesAdapter(causes, mContext, this);
+        final CausesAdapter adapter = new CausesAdapter(causeArrayList, mContext, this);
         recyclerViewCauses.setAdapter(adapter);
 
         profileProgressbar.setVisibility(View.VISIBLE);
@@ -148,11 +144,8 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Cause cause = dataSnapshot.getValue(Cause.class);
                 cause.setKey(dataSnapshot.getKey());
-                causes.add(cause);
+                causeArrayList.add(cause);
                 adapter.notifyDataSetChanged();
-                profileProgressbar.setVisibility(View.INVISIBLE);
-                btnCreate.setVisibility(View.VISIBLE);
-                btnCreate.setEnabled(true);
             }
 
             @Override
@@ -217,6 +210,10 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
     @Override
     public void onCardClickListener(Cause cause) {
+        Intent intent = new Intent(mContext, DetailCauseActivity.class);
+        intent.putExtra(Constants.CAUSE, cause);
+        intent.putExtra(Constants.MODE_EDIT, true);
+        startActivity(intent);
     }
 
     @Override
@@ -243,6 +240,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     @OnClick(R.id.buttonCreate)
     void createCause() {
         Intent intent = new Intent(getActivity(), EditCauseActivity.class);
+        intent.putExtra(MODE_CREATE, true);
         startActivity(intent);
     }
 

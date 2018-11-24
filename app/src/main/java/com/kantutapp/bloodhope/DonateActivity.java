@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.kantutapp.bloodhope.models.Cause;
+import com.kantutapp.bloodhope.models.Collaborator;
 import com.kantutapp.bloodhope.models.Hospital;
 import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.utils.Constants;
@@ -29,11 +30,10 @@ import com.mapbox.mapboxsdk.camera.CameraPosition;
 import com.mapbox.mapboxsdk.camera.CameraUpdateFactory;
 import com.mapbox.mapboxsdk.geometry.LatLng;
 import com.mapbox.mapboxsdk.maps.MapView;
-import com.mapbox.mapboxsdk.maps.MapboxMap;
-import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -147,12 +147,9 @@ public class DonateActivity extends AppCompatActivity {
                             if (user.getPhone_number() != null) {
                                 if (user.getPhone_number().length() > 0) {
                                     radioWhatsapp.setVisibility(View.VISIBLE);
-                                    radioWhatsapp.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            CAUSE_CONTACT_TYPE = WHATSAPP;
-                                            CAUSE_CONTACT_SRC = user.getPhone_number();
-                                        }
+                                    radioWhatsapp.setOnClickListener(v -> {
+                                        CAUSE_CONTACT_TYPE = WHATSAPP;
+                                        CAUSE_CONTACT_SRC = user.getPhone_number();
                                     });
                                 }
 
@@ -160,12 +157,9 @@ public class DonateActivity extends AppCompatActivity {
                             if (user.getEmail() != null) {
                                 if (user.getEmail().length() > 0) {
                                     radioMail.setVisibility(View.VISIBLE);
-                                    radioMail.setOnClickListener(new View.OnClickListener() {
-                                        @Override
-                                        public void onClick(View v) {
-                                            CAUSE_CONTACT_TYPE = MAIL;
-                                            CAUSE_CONTACT_SRC = user.getEmail();
-                                        }
+                                    radioMail.setOnClickListener(v -> {
+                                        CAUSE_CONTACT_TYPE = MAIL;
+                                        CAUSE_CONTACT_SRC = user.getEmail();
                                     });
                                 }
                             }
@@ -222,8 +216,7 @@ public class DonateActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_im_in)
     public void contactWithDonor() {
-        // TODO (6) Aniadirlo como Colaborador NO CONFIRMADO
-
+        addCollaborator();
         Toast.makeText(this, "Sending....", Toast.LENGTH_SHORT).show();
         if (CAUSE_CONTACT_TYPE.length() > 0 && CAUSE_CONTACT_SRC.length() > 0) {
             switch (CAUSE_CONTACT_TYPE) {
@@ -237,6 +230,24 @@ public class DonateActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Method for add a new collaborator in /users_collaborators
+     * */
+    private void addCollaborator() {
+        if (cause != null){
+            Collaborator collaborator = new Collaborator();
+            collaborator.setId_cause(cause.key);
+            collaborator.setId_user(cause.user_id);
+            collaborator.setStatus(false);
+            Calendar b = Calendar.getInstance();
+            int y = b.get(Calendar.YEAR);
+            int m = b.get(Calendar.MONTH);
+            int d = b.get(Calendar.DAY_OF_MONTH);
+            String collaboratorKey = mDatabase.child(Constants.USERS_COLLABORATORS).push().getKey()  + "_" + d + "@" + m + "@" + y;
+            mDatabase.child(Constants.USERS_COLLABORATORS).child(collaboratorKey).setValue(collaborator);
+        }
+
+    }
 
     private void sendWhatsapp(String number) {
         // TODO (5) Cambiar el mensaje de whastapp

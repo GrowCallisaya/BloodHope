@@ -5,18 +5,15 @@ import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,7 +24,6 @@ import com.kantutapp.bloodhope.models.Cause;
 import com.kantutapp.bloodhope.models.Collaborator;
 import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.models.UserCollaborator;
-import com.kantutapp.bloodhope.utils.Constants;
 import com.kantutapp.bloodhope.utils.TextViewMontserratBold;
 import com.kantutapp.bloodhope.utils.TextViewMontserratRegular;
 import com.squareup.picasso.Picasso;
@@ -40,7 +36,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
-public class DetailCauseActivity extends AppCompatActivity {
+import static com.kantutapp.bloodhope.utils.Constants.CAUSE;
+import static com.kantutapp.bloodhope.utils.Constants.MODE_EDIT;
+import static com.kantutapp.bloodhope.utils.Constants.MODE_VIEW;
+import static com.kantutapp.bloodhope.utils.Constants.USERS;
+import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS;
+import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS_IDCAUSE;
+import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS_STATUS;
+
+
+
+public class DetailCauseActivity extends AppCompatActivity implements CollaboratorAdapter.onChechboxHandler {
 
     public static final String EXTRA_CAUSE_KEY = "cause_key";
 
@@ -93,11 +99,11 @@ public class DetailCauseActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         Bundle extras = getIntent().getExtras();
-        if (extras.containsKey(Constants.CAUSE)) {
-            cause = getIntent().getParcelableExtra(Constants.CAUSE);
-            if (extras.containsKey(Constants.MODE_EDIT))
+        if (extras.containsKey(CAUSE)) {
+            cause = getIntent().getParcelableExtra(CAUSE);
+            if (extras.containsKey(MODE_EDIT))
                 editCause();
-            if (extras.containsKey(Constants.MODE_VIEW))
+            if (extras.containsKey(MODE_VIEW))
                 viewCause();
         }
     }
@@ -144,66 +150,53 @@ public class DetailCauseActivity extends AppCompatActivity {
 
 
     private void setUpCollaboratorsUI() {
-        final List<UserCollaborator> userCollaborators = new ArrayList<>();
-        final CollaboratorAdapter adapter = new CollaboratorAdapter(userCollaborators,this);
+        final List<UserCollaborator> userCollaboratorList = new ArrayList<>();
+        final CollaboratorAdapter collaboratorAdapter = new CollaboratorAdapter(userCollaboratorList,this, this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerCollaborators.setLayoutManager(layoutManager);
-        recyclerCollaborators.setAdapter(adapter);
+        recyclerCollaborators.setAdapter(collaboratorAdapter);
 
         if (cause != null) {
-            mDatabase.child(Constants.USERS_COLLABORATORS)
-                    .orderByChild("id_cause")
+            mDatabase.child(USERS_COLLABORATORS)
+                    .orderByChild(USERS_COLLABORATORS_IDCAUSE)
                     .equalTo(cause.getKey())
-                    .addChildEventListener(new ChildEventListener() {
+                    .addValueEventListener(new ValueEventListener() {
                         @Override
-                        public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                            final Collaborator collaborator = dataSnapshot.getValue(Collaborator.class);
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            for (DataSnapshot collaboratorSnapshot: dataSnapshot.getChildren()) {
+                                userCollaboratorList.clear();
+                                final Collaborator collaborator = collaboratorSnapshot.getValue(Collaborator.class);
+                                final String collaboratorKey = collaboratorSnapshot.getKey();
 
-                            // Get the User Info from Collaborator
-                            mDatabase.child(Constants.USERS)
-                                    .child(collaborator.getId_user())
-                                    .addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    User user = dataSnapshot.getValue(User.class);
+                                // Get the User Info from Collaborator
+                                if (collaborator !=null){
+                                mDatabase.child(USERS)
+                                        .child(collaborator.getId_user())
+                                        .addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                    if (user != null) {
-                                        Log.e("Gool", user.getName());
-                                        UserCollaborator userCollaborator =
-                                                new UserCollaborator(
-                                                        user.getPhoto(),
-                                                        user.getName(),
-                                                        user.getPhone_number(),
-                                                        collaborator.getStatus());
+                                                User user = dataSnapshot.getValue(User.class);
 
-                                        userCollaborators.add(userCollaborator);
-                                        adapter.notifyDataSetChanged();
-                                    }
+                                                if (user != null) {
+                                                    UserCollaborator userCollaborator =
+                                                            new UserCollaborator(
+                                                                    collaboratorKey,
+                                                                    user.getPhoto(),
+                                                                    user.getName(),
+                                                                    user.getPhone_number(),
+                                                                    collaborator.getStatus());
 
+                                                    userCollaboratorList.add(userCollaborator);
+                                                    collaboratorAdapter.notifyDataSetChanged();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {}
+                                        });
                                 }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-
-
-                        }
-
-                        @Override
-                        public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                        }
-
-                        @Override
-                        public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                        }
-
-                        @Override
-                        public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                            }
                         }
 
                         @Override
@@ -211,8 +204,6 @@ public class DetailCauseActivity extends AppCompatActivity {
 
                         }
                     });
-
-
         }
 
     }
@@ -222,7 +213,7 @@ public class DetailCauseActivity extends AppCompatActivity {
     public void donateCause() {
         if (cause != null) {
             Intent intentToDonateActivity = new Intent(this, DonateActivity.class);
-            intentToDonateActivity.putExtra(Constants.CAUSE, cause);
+            intentToDonateActivity.putExtra(CAUSE, cause);
             startActivity(intentToDonateActivity);
         }
     }
@@ -232,7 +223,8 @@ public class DetailCauseActivity extends AppCompatActivity {
     public void editInfoOfCause() {
         if (cause != null) {
             Intent intentToEditActivity = new Intent(this, EditCauseActivity.class);
-            intentToEditActivity.putExtra(Constants.CAUSE, cause);
+            intentToEditActivity.putExtra(CAUSE, cause);
+            intentToEditActivity.putExtra(MODE_EDIT, true);
             startActivity(intentToEditActivity);
         }
     }
@@ -242,5 +234,19 @@ public class DetailCauseActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+
+
+    @Override
+    public void onCheckBoxSelectedListener(UserCollaborator userCollaborator) {
+        // Change status of collaborator
+        mDatabase.child(USERS_COLLABORATORS)
+                .child(userCollaborator.getKey())
+                .child(USERS_COLLABORATORS_STATUS)
+                .setValue(true);
+
+        // TODO Send Notification to user
+
     }
 }

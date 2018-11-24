@@ -6,21 +6,24 @@ package com.kantutapp.bloodhope.utils;
 
 public class Constants {
 
-    public static final String USER_ACCOUNT = "user_account";
-
-
     public static final String CAUSE = "Cause";
     public static final String CAUSES_USERID = "user_id";
+
+    public static final String MODE_EDIT   = "EDIT";
+    public static final String MODE_VIEW = "VIEW";
+    public static final String MODE_CREATE = "CREATE";
+
 
     // Firebase References
     public static final String USERS = "users";
     public static final String HOSPITAL = "hospitals";
     public static final String CAUSES = "causes";
-    public static final String CITY = "city_id";
+    public static final String CITY = "city";
+
+
+
+
     public static final String USERS_COLLABORATORS = "users_collaborators";
-
-
-    public static final String MODE_EDIT   = "EDIT";
-    public static final String MODE_VIEW = "VIEW";
-
+    public static final String USERS_COLLABORATORS_IDCAUSE = "id_cause";
+    public static final String USERS_COLLABORATORS_STATUS = "status";
 }

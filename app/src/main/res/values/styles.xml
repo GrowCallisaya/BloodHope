@@ -16,4 +16,22 @@
         <item name="android:windowBackground">@drawable/splash</item>
     </style>
 
+
+    <style name="editTextForm">
+        <item name="android:paddingTop">19dp</item>
+        <item name="android:paddingBottom">19dp</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/custom_edit_text</item>
+    </style>
+
+    <style name="spinnerForm">
+        <item name="android:paddingTop">19dp</item>
+        <item name="android:paddingBottom">19dp</item>
+        <item name="android:paddingLeft">25dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/custom_spinner</item>
+    </style>
 </resources>
