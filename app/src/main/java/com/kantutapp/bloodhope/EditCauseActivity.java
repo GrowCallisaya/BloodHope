@@ -116,6 +116,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
 
 
     private Uri filePath;
+    private String currentBloodtypeSelected = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -433,7 +434,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
 
     @Override
     public void onBloodTypeClickListener(String bloodType) {
-        currentUser.setBlood_type(bloodType);
+        currentBloodtypeSelected = bloodType;
 
 
     }
@@ -483,7 +484,7 @@ public class EditCauseActivity extends AppCompatActivity implements View.OnClick
             }
 
             // Select Blood Group
-            String currentBloodType = currentUser.getBlood_type();
+            String currentBloodType = currentBloodtypeSelected;
             createadCause.setBlood_type(currentBloodType);
 
 
