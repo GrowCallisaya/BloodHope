@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 public class User implements Parcelable {
 
+    String key;
     String name;
     String photo;
     String email;
@@ -16,7 +17,8 @@ public class User implements Parcelable {
     public User() {
     }
 
-    public User(String name, String photo, String phone_number, String blood_type, int number_donations, String email) {
+    public User(String key, String name, String photo, String phone_number, String blood_type, int number_donations, String email) {
+        this.key = key;
         this.name = name;
         this.photo = photo;
         this.phone_number = phone_number;
@@ -26,6 +28,7 @@ public class User implements Parcelable {
     }
 
     protected User(Parcel in) {
+        key = in.readString();
         name = in.readString();
         photo = in.readString();
         phone_number = in.readString();
@@ -94,6 +97,15 @@ public class User implements Parcelable {
         this.email = email;
     }
 
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -101,6 +113,7 @@ public class User implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(key);
         dest.writeString(name);
         dest.writeString(photo);
         dest.writeString(phone_number);

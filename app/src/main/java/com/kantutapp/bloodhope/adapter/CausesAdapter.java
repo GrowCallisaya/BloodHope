@@ -82,10 +82,13 @@ public class CausesAdapter extends RecyclerView.Adapter<CausesAdapter.CauseViewH
 
         public void bind(int position) {
             Cause cause= mData.get(position);
-            Picasso.get()
-                    .load(cause.getImage())
-                    .placeholder(R.drawable.cause)
-                    .into(imageViewCause);
+            if (cause.getImage() != null){
+                if (!cause.getImage().isEmpty())
+                    Picasso.get()
+                            .load(cause.getImage())
+                            .placeholder(R.drawable.cause)
+                            .into(imageViewCause);
+            }
 
         }
 

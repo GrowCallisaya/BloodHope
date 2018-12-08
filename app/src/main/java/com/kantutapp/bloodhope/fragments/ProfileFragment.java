@@ -19,7 +19,6 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,7 +33,6 @@ import com.kantutapp.bloodhope.models.Cause;
 import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.utils.Constants;
 import com.kantutapp.bloodhope.viewholder.CauseViewHolder;
-import com.onesignal.OneSignal;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -68,6 +66,8 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
 
     Context mContext;
+    View mView;
+
     @BindView(R.id.profile_progressbar)
     ProgressBar profileProgressbar;
 
@@ -77,6 +77,9 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     private FirebaseRecyclerAdapter<Cause, CauseViewHolder> mAdapter;
     private LinearLayoutManager mManager;
     public  Unbinder binder;
+
+    public String currentUserName="";
+    public String currentPhoneNumber="";
 
     public ProfileFragment() {
     }
@@ -90,11 +93,14 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        mContext = view.getContext();
-        binder = ButterKnife.bind(this, view);
 
-        return view;
+        if (container != null)
+            container.removeAllViews();
+        mView = inflater.inflate(R.layout.fragment_profile, container, false);
+        mContext = mView.getContext();
+        binder = ButterKnife.bind(this, mView);
+
+        return mView;
     }
 
 
@@ -134,32 +140,31 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
         final CausesAdapter adapter = new CausesAdapter(causeArrayList, mContext, this);
         recyclerViewCauses.setAdapter(adapter);
 
-        profileProgressbar.setVisibility(View.VISIBLE);
-        btnCreate.setEnabled(false);
-        btnCreate.setVisibility(View.INVISIBLE);
 
 
-        ChildEventListener eventListener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Cause cause = dataSnapshot.getValue(Cause.class);
-                cause.setKey(dataSnapshot.getKey());
-                causeArrayList.add(cause);
-                adapter.notifyDataSetChanged();
-            }
+        (mView.findViewById(R.id.profile_progressbar)).setVisibility(View.VISIBLE);
+        ValueEventListener valueEventListener = new ValueEventListener() {
 
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                adapter.notifyDataSetChanged();
-            }
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                causeArrayList.clear();
+                (mView.findViewById(R.id.profile_progressbar)).setVisibility(View.GONE);
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.getChildrenCount() == 0){
+                    (mView.findViewById(R.id.recycler_causes)).setVisibility(View.GONE);
+                    (mView.findViewById(R.id.buttonCreate)).setVisibility(View.VISIBLE);
+                } else {
+                    (mView.findViewById(R.id.recycler_causes)).setVisibility(View.VISIBLE);
+                    (mView.findViewById(R.id.buttonCreate)).setVisibility(View.GONE);
+                    for (DataSnapshot causesSnapshot: dataSnapshot.getChildren()) {
+                        Cause cause = causesSnapshot.getValue(Cause.class);
+                        String causeKey = causesSnapshot.getKey();
 
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                        cause.setKey(causeKey);
+                        causeArrayList.add(cause);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
             }
 
             @Override
@@ -168,7 +173,7 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
             }
         };
 
-        causeQuery.addChildEventListener(eventListener);
+        causeQuery.addValueEventListener(valueEventListener);
 
 
     }
@@ -185,18 +190,30 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
                     String profileName = user.getName();
                     int profileDonations = user.getNumber_donations();
                     String profilePhoto = user.getPhoto();
+                    String profilePhoneNumber = user.getPhone_number();
 
-                    if (profileName != null)
+                    if (!profileName.isEmpty()){
                         textViewProfileName.setText(profileName);
+                        currentUserName = profileName;
+                    }
+
 
                     if (profileDonations >= 0)
                         textViewProfileDonations.setText("DONATIONS: "+ profileDonations);
 
-                    if (profilePhoto != null)
-                        Picasso.get()
-                                .load(profilePhoto)
-                                .placeholder(R.drawable.profile)
-                                .into(circleImageViewThumbnail);
+                    if (profilePhoto != null){
+                        if (!profilePhoto.isEmpty())
+                            Picasso.get()
+                                    .load(profilePhoto)
+                                    .placeholder(R.drawable.profile)
+                                    .into(circleImageViewThumbnail);
+                    }
+
+
+                    if (!profilePhoneNumber.isEmpty()){
+                         currentPhoneNumber = profilePhoneNumber;
+                    }
+
                 }
             }
 
@@ -241,6 +258,8 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
     void createCause() {
         Intent intent = new Intent(getActivity(), EditCauseActivity.class);
         intent.putExtra(MODE_CREATE, true);
+        intent.putExtra(Constants.USER_NAME, currentUserName);
+        intent.putExtra(Constants.USER_PHONENUMBER, currentPhoneNumber);
         startActivity(intent);
     }
 

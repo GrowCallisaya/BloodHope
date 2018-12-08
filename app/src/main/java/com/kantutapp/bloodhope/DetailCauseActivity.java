@@ -37,6 +37,7 @@ import butterknife.OnClick;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 import static com.kantutapp.bloodhope.utils.Constants.CAUSE;
+import static com.kantutapp.bloodhope.utils.Constants.CAUSES;
 import static com.kantutapp.bloodhope.utils.Constants.MODE_EDIT;
 import static com.kantutapp.bloodhope.utils.Constants.MODE_VIEW;
 import static com.kantutapp.bloodhope.utils.Constants.USERS;
@@ -47,8 +48,6 @@ import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS_STATUS
 
 
 public class DetailCauseActivity extends AppCompatActivity implements CollaboratorAdapter.onChechboxHandler {
-
-    public static final String EXTRA_CAUSE_KEY = "cause_key";
 
     @BindView(R.id.detail_toolbar)
     Toolbar detailToolbar;
@@ -126,10 +125,13 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
 
     private void setupCauseUI() {
         if (cause != null) {
-            Picasso.get()
-                    .load(cause.getImage())
-                    .placeholder(R.drawable.cause)
-                    .into(detailCauseImage);
+            if (cause.getImage() != null){
+                if (!cause.getImage().isEmpty())
+                    Picasso.get()
+                            .load(cause.getImage())
+                            .placeholder(R.drawable.cause)
+                            .into(detailCauseImage);
+            }
 
             detailCauseTitle.setText(cause.getTitle());
             detailCauseDescription.setText(cause.getDescription());
@@ -152,6 +154,7 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
     private void setUpCollaboratorsUI() {
         final List<UserCollaborator> userCollaboratorList = new ArrayList<>();
         final CollaboratorAdapter collaboratorAdapter = new CollaboratorAdapter(userCollaboratorList,this, this);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerCollaborators.setLayoutManager(layoutManager);
         recyclerCollaborators.setAdapter(collaboratorAdapter);
@@ -163,8 +166,9 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
                     .addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            userCollaboratorList.clear();
+
                             for (DataSnapshot collaboratorSnapshot: dataSnapshot.getChildren()) {
-                                userCollaboratorList.clear();
                                 final Collaborator collaborator = collaboratorSnapshot.getValue(Collaborator.class);
                                 final String collaboratorKey = collaboratorSnapshot.getKey();
 
@@ -176,19 +180,26 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
                                             @Override
                                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                User user = dataSnapshot.getValue(User.class);
+                                                if (dataSnapshot.exists()){
+                                                    User user = dataSnapshot.getValue(User.class);
+                                                    user.setKey(dataSnapshot.getKey());
 
-                                                if (user != null) {
-                                                    UserCollaborator userCollaborator =
-                                                            new UserCollaborator(
-                                                                    collaboratorKey,
-                                                                    user.getPhoto(),
-                                                                    user.getName(),
-                                                                    user.getPhone_number(),
-                                                                    collaborator.getStatus());
+                                                    if (user != null) {
+                                                        UserCollaborator userCollaborator =
+                                                                new UserCollaborator(
+                                                                        collaboratorKey,
+                                                                        user.getPhoto(),
+                                                                        user.getName(),
+                                                                        user.getEmail(),
+                                                                        collaborator.getStatus());
 
-                                                    userCollaboratorList.add(userCollaborator);
-                                                    collaboratorAdapter.notifyDataSetChanged();
+                                                        userCollaborator.setUser(user);
+                                                        userCollaborator.setCause(cause);
+
+
+                                                        userCollaboratorList.add(userCollaborator);
+                                                        collaboratorAdapter.notifyDataSetChanged();
+                                                    }
                                                 }
                                             }
 
@@ -249,4 +260,26 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
         // TODO Send Notification to user
 
     }
+
+    @Override
+    public void addDonationToUser(User user) {
+        int donations = user.getNumber_donations();
+        donations++;
+        mDatabase.child(USERS)
+                .child(user.getKey())
+                .child("number_donations")
+                .setValue(donations);
+    }
+
+    @Override
+    public void incrementNumberOfDonations(Cause cause) {
+        int donations = cause.getNumber_donations();
+        donations++;
+        mDatabase.child(CAUSES)
+                .child(cause.getKey())
+                .child("number_donations")
+                .setValue(donations);
+    }
+
+
 }

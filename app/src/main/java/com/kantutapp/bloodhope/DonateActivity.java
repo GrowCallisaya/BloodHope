@@ -107,8 +107,6 @@ public class DonateActivity extends AppCompatActivity {
                             String name= hospital.getName();
                             mapView.getMapAsync( mapboxMap -> {
 
-                                Toast.makeText(DonateActivity.this, "lat" + latitute, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(DonateActivity.this, "lon" + longitude, Toast.LENGTH_SHORT).show();
                                 LatLng coords = new LatLng(latitute, longitude);
                                 mapboxMap.addMarker(new MarkerOptions()
                                         .position(coords)
@@ -241,10 +239,13 @@ public class DonateActivity extends AppCompatActivity {
             collaborator.setStatus(false);
             Calendar b = Calendar.getInstance();
             int y = b.get(Calendar.YEAR);
-            int m = b.get(Calendar.MONTH);
+            int m = b.get(Calendar.MONTH) + 1;
             int d = b.get(Calendar.DAY_OF_MONTH);
             String collaboratorKey = mDatabase.child(Constants.USERS_COLLABORATORS).push().getKey()  + "_" + d + "@" + m + "@" + y;
             mDatabase.child(Constants.USERS_COLLABORATORS).child(collaboratorKey).setValue(collaborator);
+
+            // Adding one Donation
+            mDatabase.child(Constants.CAUSES).child(cause.key).child("number_donations").setValue(cause.number_donations + 1);
         }
 
     }
@@ -252,7 +253,7 @@ public class DonateActivity extends AppCompatActivity {
     private void sendWhatsapp(String number) {
         // TODO (5) Cambiar el mensaje de whastapp
         try {
-            String text = "OUR DEMO TEXT";
+            String text = "Hey there! I'll be your collaborator!";
             String toNumber = number;
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + toNumber + "&text=" + text));

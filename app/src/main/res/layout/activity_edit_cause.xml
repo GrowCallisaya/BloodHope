@@ -34,8 +34,8 @@
         android:layout_height="match_parent"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:orientation="vertical">
 
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
@@ -52,8 +52,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/editTextForm"
-            android:hint="Name" />
-        <EditText
+            android:hint="Full Name" />
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_mobile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -71,7 +71,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-        <EditText
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_donations"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -91,15 +91,17 @@
             android:textSize="15sp"
             android:textColor="#000"/>
 
-        <EditText
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_deadline"
-            android:hint="DD-MM-YYYY "
+            android:hint="mm/dd/yyyy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/editTextForm"
             android:inputType="date"
             android:digits="1234567890-"
             android:maxLength="10"
+            android:focusable="false"
+            android:enabled="true"
             android:background="@drawable/custom_edit_text"
             />
 
@@ -164,7 +166,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-        <EditText
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -180,7 +182,7 @@
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>
-        <EditText
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_story"
             android:layout_width="match_parent"
             android:layout_height="130dp"
@@ -219,6 +221,7 @@
                 android:id="@+id/btn_photo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginBottom="12dp"
                 android:layout_centerVertical="true"
                 android:layout_centerHorizontal="true"

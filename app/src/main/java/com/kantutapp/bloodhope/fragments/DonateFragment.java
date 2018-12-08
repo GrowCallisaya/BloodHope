@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager;
@@ -28,6 +29,7 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 public class DonateFragment extends Fragment implements CarrouselPagerAdapter.OnItemCauseClickListener {
@@ -37,12 +39,15 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
     HorizontalInfiniteCycleViewPager cardPager;
     @BindView(R.id.donate_progressbar)
     ProgressBar progressBar;
+    @BindView(R.id.btn_filter)
+    ImageView btnFilter;
 
     Unbinder unbinder;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     public View mView;
@@ -56,6 +61,9 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (container != null)
+            container.removeAllViews();
         mView = inflater.inflate(R.layout.fragment_donate, container, false);
         mContext = mView.getContext();
         unbinder = ButterKnife.bind(this, mView);
@@ -78,8 +86,8 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
         Query query = mDatabase.child(Constants.CAUSES);
 
 
-        progressBar.setVisibility(View.VISIBLE);
-        cardPager.setVisibility(View.GONE);
+        (mView.findViewById(R.id.donate_progressbar)).setVisibility(View.VISIBLE);
+        (mView.findViewById(R.id.card_pager)).setVisibility(View.GONE);
 
         ChildEventListener eventListener = new ChildEventListener() {
             @Override
@@ -87,8 +95,8 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
                 Cause cause = dataSnapshot.getValue(Cause.class);
                 cause.setKey(dataSnapshot.getKey());
                 causes.add(cause);
-                progressBar.setVisibility(View.GONE);
-                cardPager.setVisibility(View.VISIBLE);
+                (mView.findViewById(R.id.donate_progressbar)).setVisibility(View.GONE);
+                (mView.findViewById(R.id.card_pager)).setVisibility(View.VISIBLE);
                 if (cardPager != null)
                     cardPager.notifyDataSetChanged();
             }
@@ -133,4 +141,9 @@ public class DonateFragment extends Fragment implements CarrouselPagerAdapter.On
         intent.putExtra(Constants.MODE_VIEW, true);
         startActivity(intent);
     }
+
+     @OnClick(R.id.btn_filter)
+    public void logout(){
+
+     }
 }

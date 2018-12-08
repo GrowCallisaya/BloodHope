@@ -72,4 +72,21 @@
     <string name="donate_schedule_title">Schedules</string>
     <string name="donate_contacts_title">Contacts</string>
 
+
+
+    <!--Prices Fragment-->
+    <string name="prices_contact_header">Enter your address where the gift will be send.</string>
+    <string name="prices_dialog_zip">Enter your ZIP</string>
+    <string name="prices_dialog_address">Enter your Address</string>
+    <string name="prices_dialog_terms_and_conditions">Clicking SEND, we will verify your number of donations and you are going to receive your gift in the next 30 days! Enjoy it and keep helping people!</string>
+    <string name="prices_dialog_send">SEND</string>
+    <string name="prices_dialog_title">Contact Info</string>
+    <string name="collaborator_dialog_title">Add Collaborator</string>
+    <string name="collaborator_dialog_description">This collaborator have been contacted with you by email or whatsapp, Do you confirm his/her help?</string>
+    <string name="collaborator_dialog_terms_and_condition">Clicking YES, the collaborator will be part of your cause.</string>
+    <string name="collaborator_dialog_yes">YES, APPROVE IT</string>
+    <string name="collaborator_dialog_no">NOT YET, CANCEL</string>
+
+    <!--Add Collaborator-->
+
 </resources>

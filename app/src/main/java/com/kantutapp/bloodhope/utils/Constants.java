@@ -19,6 +19,7 @@ public class Constants {
     public static final String HOSPITAL = "hospitals";
     public static final String CAUSES = "causes";
     public static final String CITY = "city";
+    public static final String PHRASES = "phrases";
 
 
 
@@ -26,4 +27,8 @@ public class Constants {
     public static final String USERS_COLLABORATORS = "users_collaborators";
     public static final String USERS_COLLABORATORS_IDCAUSE = "id_cause";
     public static final String USERS_COLLABORATORS_STATUS = "status";
+
+    public static final String USER_NAME = "USER_NAME";
+    public static final String USER_PHONENUMBER = "USER_PHONENUMBER";
+
 }

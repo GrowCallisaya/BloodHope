@@ -7,6 +7,9 @@ public class UserCollaborator {
     String city;
     Boolean status;
 
+    User user;
+    Cause cause;
+
     public UserCollaborator() {
     }
 
@@ -57,5 +60,22 @@ public class UserCollaborator {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser(){
+        return this.user;
+    }
+
+    public Cause getCause() {
+        return cause;
+    }
+
+    public void setCause(Cause cause) {
+        this.cause = cause;
     }
 }

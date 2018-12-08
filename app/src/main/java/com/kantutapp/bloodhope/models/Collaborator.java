@@ -3,9 +3,6 @@ package com.kantutapp.bloodhope.models;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import lombok.Getter;
-import lombok.Setter;
-
 public class Collaborator {
     String id_cause;
     String id_user;
