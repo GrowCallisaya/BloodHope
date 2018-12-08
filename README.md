@@ -1,6 +1,8 @@
 # BloodHope
 
-This is an app that is participating in the IEEEmadC challenge.
+This app will help people who need blood, with those amazing people who are able to donate! All of this through crowfunding of blood, sharing causes and reach people all over the world, Connecting Blood Banks and connect lives. _We don't give people a tool, we give them **HOPE**_
+
+<img src="images/artbloodhope.png" >
 
 ## Features
 
@@ -40,5 +42,5 @@ In order to build this project follow the next steps:
 
 ## Note
 
-This app is in developing progress, so feel free to contact me if you want to submit some code.
+This app is participating in the IEEEmadC challenge. We're in developing progress, so feel free to contact me if you want to contribute to the cause.
 `grover.callisaya.dg@gmail.com`
