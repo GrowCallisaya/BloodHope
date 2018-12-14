@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+
+import com.kantutapp.bloodhope.utils.TextViewMontserratBold;
+import com.kantutapp.bloodhope.utils.TextViewMontserratRegular;
 
 public class SlideWelcomeAdapter extends PagerAdapter{
 
@@ -25,20 +26,26 @@ public class SlideWelcomeAdapter extends PagerAdapter{
             R.drawable.screen_three_icon
     };
 
-    public String [] slide_text1 ={
-           " Where ",
-            "Why",
-            "When"
+    public int [] slide_bakground ={
+            R.drawable.screen_one,
+            R.drawable.screen_two,
+            R.drawable.screen_three
     };
 
-    public String  [] slide_text2 ={
-            "Here ....",
-            "Why not .... ",
-            "Now ..."
+    public String [] slideTitles ={
+           " Donate Blood",
+            "Create a cause and find donors",
+            "Make a community"
+    };
+
+    public String  [] slideDescriptions ={
+            "This is your opportunity to give hope to somebody. Have a try, somebody is waiting for you.",
+            "If you need blood, you can create your cause and share with others to find help! There is always a good heart",
+            "Reach a big community of people who wants to help others!"
     };
     @Override
     public int getCount() {
-        return slide_text1.length;
+        return slideTitles.length;
     }
 
     @Override
@@ -52,13 +59,15 @@ public class SlideWelcomeAdapter extends PagerAdapter{
         layoutInflater = (LayoutInflater)  context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view = layoutInflater.inflate(R.layout.slide_welcome_layout, container, false);
 
-        ImageView slide_images_1= view.findViewById(R.id.slideImage);
-        TextView slide_text1_1  = view.findViewById(R.id.slideText1);
-        TextView slide_text2_1  = view.findViewById(R.id.slideText2);
+        ImageView slideBackground= view.findViewById(R.id.slideImage);
+        ImageView slideIcon= view.findViewById(R.id.slideImage);
+        TextViewMontserratBold slideTextTitle  = view.findViewById(R.id.slideText1);
+        TextViewMontserratRegular slideTextDescription = view.findViewById(R.id.slideText2);
 
-        slide_images_1.setImageResource(slide_images[position]);
-        slide_text1_1.setText(slide_text1[position]);
-        slide_text2_1.setText(slide_text2[position]);
+//        slideBackground.setImageResource(slide_bakground[position]);
+        slideIcon.setImageResource(slide_images[position]);
+        slideTextTitle.setText(slideTitles[position]);
+        slideTextDescription.setText(slideDescriptions[position]);
 
         container.addView(view);
 

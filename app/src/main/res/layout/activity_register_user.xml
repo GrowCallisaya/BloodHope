@@ -1,36 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="16dp"
+    android:background="@color/colorWhite"
     xmlns:fancy="http://schemas.android.com/apk/res-auto"
     tools:context=".RegisterUserActivity">
 
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorWhite">
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Information About you"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"/>
+    </android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"
         android:orientation="vertical">
 
-        <EditText
+        <com.kantutapp.bloodhope.utils.TextViewMontserratRegular
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/register_contact_info"/>
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Whatsapp number"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
+
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
             android:id="@+id/et_user_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
+            android:inputType="number"
             android:background="@drawable/custom_edit_text"
-            android:hint="Phone Number" />
+            style="@style/editTextForm"
+            android:hint="Phone Number (Whatsapp)" />
 
         <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:text="Email"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
+
+        <com.kantutapp.bloodhope.utils.EditTextMontserratRegular
+            android:id="@+id/et_user_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
+            android:background="@drawable/custom_edit_text"
+            style="@style/editTextForm"
+            android:hint="Email" />
+
+        <com.kantutapp.bloodhope.utils.TextViewMontserratBold
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:paddingBottom="10dp"
-            android:text="Select Blood Group"/>
-
-
+            android:layout_centerHorizontal="true"
+            android:text="Select your blood type"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:textColor="#000"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_blood_types"
@@ -41,6 +96,7 @@
             android:id="@+id/btn_done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:paddingBottom="12dp"
             android:paddingTop="12dp"
             fancy:fb_defaultColor="#ff5353"
@@ -52,4 +108,4 @@
 
     </LinearLayout>
 
-</FrameLayout>
+</LinearLayout>

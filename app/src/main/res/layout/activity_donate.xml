@@ -35,54 +35,60 @@
             android:layout_margin="16dp">
 
             <com.kantutapp.bloodhope.utils.TextViewMontserratBold
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="10dp"
                 android:text="@string/donate_place_title"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp" />
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#000"/>
 
 
             <com.mapbox.mapboxsdk.maps.MapView
                 android:id="@+id/mapView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 mapbox:mapbox_cameraTargetLat="40.73581"
                 mapbox:mapbox_cameraTargetLng="-73.99155"
                 mapbox:mapbox_styleUrl="mapbox://styles/mapbox/streets-v10"
                 mapbox:mapbox_cameraZoom="11" />
 
             <com.kantutapp.bloodhope.utils.TextViewMontserratBold
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="10dp"
                 android:text="@string/donate_schedule_title"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#000"/>
+
 
             <com.kantutapp.bloodhope.utils.TextViewMontserratRegular
                 android:id="@+id/hospital_schedules"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="9:00 PM - 10:00 PM"/>
+                android:text="10:00 PM - 4:00 AM PT"/>
 
             <com.kantutapp.bloodhope.utils.TextViewMontserratBold
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="16dp"
+                android:paddingBottom="10dp"
                 android:text="@string/donate_contacts_title"
-                android:textColor="@color/colorBlack"
-                android:layout_marginTop="10dp"
-                android:textSize="14sp"/>
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:textColor="#000"/>
+
 
             <com.kantutapp.bloodhope.utils.TextViewMontserratRegular
                 android:id="@+id/hospital_contacts_parragraph"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="Select how do you want to contact with Andrea:"/>
-
-
+                android:text="Select how do you want to contact with him/her:"/>
 
             <RadioGroup
                 android:id="@+id/radiogroup_contacts"

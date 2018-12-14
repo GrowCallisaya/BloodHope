@@ -1,8 +1,11 @@
 package com.kantutapp.bloodhope;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -10,10 +13,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookActivity;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.share.Sharer;
+import com.facebook.share.model.ShareHashtag;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.model.SharePhoto;
+import com.facebook.share.model.SharePhotoContent;
+import com.facebook.share.widget.ShareButton;
+import com.facebook.share.widget.ShareDialog;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,6 +41,8 @@ import com.kantutapp.bloodhope.models.Cause;
 import com.kantutapp.bloodhope.models.Collaborator;
 import com.kantutapp.bloodhope.models.User;
 import com.kantutapp.bloodhope.models.UserCollaborator;
+import com.kantutapp.bloodhope.utils.Constants;
+import com.kantutapp.bloodhope.utils.SpinnerMontserratAdapter;
 import com.kantutapp.bloodhope.utils.TextViewMontserratBold;
 import com.kantutapp.bloodhope.utils.TextViewMontserratRegular;
 import com.squareup.picasso.Picasso;
@@ -34,17 +53,18 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import mehdi.sakout.fancybuttons.FancyButton;
 import pl.pawelkleczkowski.customgauge.CustomGauge;
 
 import static com.kantutapp.bloodhope.utils.Constants.CAUSE;
 import static com.kantutapp.bloodhope.utils.Constants.CAUSES;
+import static com.kantutapp.bloodhope.utils.Constants.CITY;
 import static com.kantutapp.bloodhope.utils.Constants.MODE_EDIT;
 import static com.kantutapp.bloodhope.utils.Constants.MODE_VIEW;
 import static com.kantutapp.bloodhope.utils.Constants.USERS;
 import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS;
 import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS_IDCAUSE;
 import static com.kantutapp.bloodhope.utils.Constants.USERS_COLLABORATORS_STATUS;
-
 
 
 public class DetailCauseActivity extends AppCompatActivity implements CollaboratorAdapter.onChechboxHandler {
@@ -80,6 +100,12 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
 
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
+    @BindView(R.id.share_facebook)
+    ImageView shareFacebook;
+
+
+    CallbackManager mCallbackManager;
+    ShareDialog shareDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +131,11 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
             if (extras.containsKey(MODE_VIEW))
                 viewCause();
         }
+
+
+        mCallbackManager = CallbackManager.Factory.create();
+        shareDialog = new ShareDialog(this);
+
     }
 
 
@@ -125,7 +156,7 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
 
     private void setupCauseUI() {
         if (cause != null) {
-            if (cause.getImage() != null){
+            if (cause.getImage() != null) {
                 if (!cause.getImage().isEmpty())
                     Picasso.get()
                             .load(cause.getImage())
@@ -136,8 +167,30 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
             detailCauseTitle.setText(cause.getTitle());
             detailCauseDescription.setText(cause.getDescription());
             detailCauseBloodType.setText(cause.getBlood_type());
-            detailCauseCityDesc.setText(cause.getCity_id());
-            detailCauseHospitalDesc.setText(cause.getHospital_id());
+            detailCauseDeadlineDesc.setText(cause.getDeadline());
+            mDatabase.child(Constants.CITY).child(cause.getCity_id()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String cityName = dataSnapshot.child("name").getValue(String.class);
+                    detailCauseCityDesc.setText(cityName);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) { }
+            });
+
+            mDatabase.child(Constants.HOSPITAL).child(cause.getHospital_id()).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                        String areaName = dataSnapshot.child("name").getValue(String.class);
+                        detailCauseHospitalDesc.setText(areaName);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            });
+
+
 
             // Gauge
             int valueOfDonations = 0;
@@ -145,7 +198,8 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
                 valueOfDonations = cause.getNumber_donations() * (360 / cause.getTotal_donations());
             }
             detailCauseGauge.setPointSize(valueOfDonations);
-            detailCauseNumberOfDonations.setText(String.valueOf(cause.getNumber_donations()));
+            String donations = cause.getNumber_donations() + "/" + cause.getTotal_donations();
+            detailCauseNumberOfDonations.setText(donations);
         }
 
     }
@@ -153,7 +207,7 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
 
     private void setUpCollaboratorsUI() {
         final List<UserCollaborator> userCollaboratorList = new ArrayList<>();
-        final CollaboratorAdapter collaboratorAdapter = new CollaboratorAdapter(userCollaboratorList,this, this);
+        final CollaboratorAdapter collaboratorAdapter = new CollaboratorAdapter(userCollaboratorList, this, this);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerCollaborators.setLayoutManager(layoutManager);
@@ -168,44 +222,45 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             userCollaboratorList.clear();
 
-                            for (DataSnapshot collaboratorSnapshot: dataSnapshot.getChildren()) {
+                            for (DataSnapshot collaboratorSnapshot : dataSnapshot.getChildren()) {
                                 final Collaborator collaborator = collaboratorSnapshot.getValue(Collaborator.class);
                                 final String collaboratorKey = collaboratorSnapshot.getKey();
 
                                 // Get the User Info from Collaborator
-                                if (collaborator !=null){
-                                mDatabase.child(USERS)
-                                        .child(collaborator.getId_user())
-                                        .addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if (collaborator != null) {
+                                    mDatabase.child(USERS)
+                                            .child(collaborator.getId_user())
+                                            .addValueEventListener(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                                                if (dataSnapshot.exists()){
-                                                    User user = dataSnapshot.getValue(User.class);
-                                                    user.setKey(dataSnapshot.getKey());
+                                                    if (dataSnapshot.exists()) {
+                                                        User user = dataSnapshot.getValue(User.class);
+                                                        user.setKey(dataSnapshot.getKey());
 
-                                                    if (user != null) {
-                                                        UserCollaborator userCollaborator =
-                                                                new UserCollaborator(
-                                                                        collaboratorKey,
-                                                                        user.getPhoto(),
-                                                                        user.getName(),
-                                                                        user.getEmail(),
-                                                                        collaborator.getStatus());
+                                                        if (user != null) {
+                                                            UserCollaborator userCollaborator =
+                                                                    new UserCollaborator(
+                                                                            collaboratorKey,
+                                                                            user.getPhoto(),
+                                                                            user.getName(),
+                                                                            user.getEmail(),
+                                                                            collaborator.getStatus());
 
-                                                        userCollaborator.setUser(user);
-                                                        userCollaborator.setCause(cause);
+                                                            userCollaborator.setUser(user);
+                                                            userCollaborator.setCause(cause);
 
 
-                                                        userCollaboratorList.add(userCollaborator);
-                                                        collaboratorAdapter.notifyDataSetChanged();
+                                                            userCollaboratorList.add(userCollaborator);
+                                                            collaboratorAdapter.notifyDataSetChanged();
+                                                        }
                                                     }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError databaseError) {}
-                                        });
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                                }
+                                            });
                                 }
                             }
                         }
@@ -248,7 +303,6 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
     }
 
 
-
     @Override
     public void onCheckBoxSelectedListener(UserCollaborator userCollaborator) {
         // Change status of collaborator
@@ -282,4 +336,62 @@ public class DetailCauseActivity extends AppCompatActivity implements Collaborat
     }
 
 
+
+
+    @OnClick(R.id.share_facebook)
+    public void shareInFacebook(){
+
+//        ShareLinkContent shareLinkContent = new ShareLinkContent.Builder()
+//                .setQuote("Help us Sharing this cause: " + cause.getTitle())
+//                .setContentUrl("")
+//                .setShareHashtag(new ShareHashtag.Builder()
+//                        .setHashtag("#BloodHope")
+//                        .build())
+//                .build();
+//        if(ShareDialog.canShow(ShareLinkContent.class)){
+//            shareDialog.show(shareLinkContent);
+//        }
+
+//        SharePhoto sharePhoto = null;
+//        if (cause.getImage() != null){
+//            String imageURL = cause.getImage();
+//            sharePhoto = new SharePhoto.Builder()
+//                    .setImageUrl(Uri.parse(imageURL))
+//                    .build();
+//        }else {
+//            sharePhoto = new SharePhoto.Builder()
+//                    .setImageUrl(Uri.parse("https://s3-sa-east-1.amazonaws.com/iclinic-mkt/blog/2014/08/confianca_medico_paciente.jpg"))
+//                    .build();
+//        }
+//
+//
+//        if(ShareDialog.canShow(SharePhotoContent.class)){
+//            SharePhotoContent content = new SharePhotoContent.Builder()
+//                    .addPhoto(sharePhoto)
+//                    .build();
+//            shareDialog.show(content);
+//
+//        }
+//
+
+        shareDialog.registerCallback(mCallbackManager, new FacebookCallback<Sharer.Result>() {
+            @Override
+            public void onSuccess(Sharer.Result result) {
+                Toast.makeText(DetailCauseActivity.this, "Shared complete!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Log.e("","A");
+            }
+
+            @Override
+            public void onError(FacebookException error) {
+                Log.e("","A");
+            }
+        });
+
+
+
+    }
 }

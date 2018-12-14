@@ -54,14 +54,14 @@ public class GeneralActivity extends AppCompatActivity implements BottomNavigati
                 return;
             }
 
-            ProfileFragment profileFragment = new ProfileFragment();
+            DonateFragment donateFragment = new DonateFragment();
 
-            profileFragment.setArguments(getIntent().getExtras());
+            donateFragment.setArguments(getIntent().getExtras());
 
-            bottomNavigation.getMenu().getItem(TAB_PROFILE).setChecked(true);
-            bottomNavigation.getMenu().getItem(TAB_PROFILE).setIcon(R.drawable.ic_profile);
+            bottomNavigation.getMenu().getItem(TAB_DONATE).setChecked(true);
+            bottomNavigation.getMenu().getItem(TAB_DONATE).setIcon(R.drawable.ic_blood);
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, profileFragment).commit();
+                    .add(R.id.fragment_container, donateFragment).commit();
 
         }
         bottomNavigation.setOnNavigationItemSelectedListener(this);

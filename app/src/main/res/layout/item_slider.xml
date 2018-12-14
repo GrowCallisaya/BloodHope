@@ -7,11 +7,15 @@
     android:background="@drawable/background_phrases"
     android:orientation="vertical">
 
-    <TextView
+    <com.kantutapp.bloodhope.utils.TextViewMontserratBold
         android:id="@+id/texto"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
+        android:text="phare pharepharepharepharepharepharepharepharepharepharepharepharepharepharephare"
         android:textSize="20sp" />
 
 </LinearLayout>

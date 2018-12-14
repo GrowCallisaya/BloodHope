@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,12 +52,8 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
 
     private static final String TAG = "ProfileFragment";
 
-    @BindView(R.id.profile_name)
-    TextView textViewProfileName;
-    @BindView(R.id.profile_number_donations)
-    TextView textViewProfileDonations;
-    @BindView(R.id.profile_thumbnail)
-    CircleImageView circleImageViewThumbnail;
+
+
     @BindView(R.id.recycler_causes)
     RecyclerView recyclerViewCauses;
     @BindView(R.id.buttonCreate)
@@ -193,20 +190,20 @@ public class ProfileFragment extends Fragment implements CausesAdapter.OnItemCli
                     String profilePhoneNumber = user.getPhone_number();
 
                     if (!profileName.isEmpty()){
-                        textViewProfileName.setText(profileName);
+                        ((TextView) mView.findViewById(R.id.profile_name)).setText(profileName);
                         currentUserName = profileName;
                     }
 
-
                     if (profileDonations >= 0)
-                        textViewProfileDonations.setText("DONATIONS: "+ profileDonations);
+                        ((TextView) mView.findViewById(R.id.profile_number_donations))
+                                .setText("DONATIONS: "+ profileDonations);
 
                     if (profilePhoto != null){
                         if (!profilePhoto.isEmpty())
                             Picasso.get()
                                     .load(profilePhoto)
                                     .placeholder(R.drawable.profile)
-                                    .into(circleImageViewThumbnail);
+                                    .into(((ImageView) mView.findViewById(R.id.profile_thumbnail)));
                     }
 
 

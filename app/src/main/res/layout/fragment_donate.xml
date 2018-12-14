@@ -56,7 +56,7 @@
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_margin="16dp"
-                android:src="@drawable/ic_filter"
+                android:src="@drawable/ic_logout"
                 android:layout_alignParentRight="true"/>
         </RelativeLayout>
 

@@ -87,6 +87,11 @@
     <string name="collaborator_dialog_yes">YES, APPROVE IT</string>
     <string name="collaborator_dialog_no">NOT YET, CANCEL</string>
 
+
+    <!--Register User-->
+    <string name="register_contact_info">Please fill these fields to have the necessary information below. We need to have your whatsapp number or email because this will help people who want to support you to contact you easily.</string>
+
+
     <!--Add Collaborator-->
 
 </resources>

@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kantutapp.bloodhope.R;
+import com.kantutapp.bloodhope.utils.TextViewMontserratBold;
 
 import java.util.List;
 
@@ -42,7 +43,7 @@ public class SliderPageAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View viewSlider = inflater.inflate(R.layout.item_slider, null);
 
-        TextView textView = viewSlider.findViewById(R.id.texto);
+        TextViewMontserratBold textView = viewSlider.findViewById(R.id.texto);
         textView.setText(phrases.get(position));
 
         ViewPager viewPager = (ViewPager) container;

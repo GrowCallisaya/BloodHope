@@ -162,7 +162,7 @@
             android:layout_alignBottom="@+id/login_background"
             android:paddingBottom="10dp"
             android:layout_centerHorizontal="true"
-            android:text="Tell us your story!"
+            android:text="Title"
             android:textStyle="bold"
             android:textSize="15sp"
             android:textColor="#000"/>

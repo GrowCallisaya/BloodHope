@@ -58,27 +58,33 @@
             android:layout_margin="16dp">
 
             <ImageView
+                android:id="@+id/share_facebook"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_profile"
+                android:src="@drawable/ic_facebook"
                 android:tint="@color/colorWhite"/>
 
             <ImageView
+                android:id="@+id/share_whatsapp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_award"
+                android:src="@drawable/ic_whatsapp"
                 android:tint="@color/colorWhite"/>
 
             <ImageView
+                android:id="@+id/share_twitter"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="50dp"
-                android:src="@drawable/ic_googleg_color_24dp"
+                android:src="@drawable/ic_twitter"
                 android:tint="@color/colorWhite"/>
+
         </LinearLayout>
     </LinearLayout>
+
+
 
 
 

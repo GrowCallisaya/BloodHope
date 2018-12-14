@@ -2,7 +2,7 @@ package com.kantutapp.bloodhope.models;
 
 public class Hospital {
     String id_city;
-    double latitutde;
+    double latitude;
     double longitude;
     String name;
 
@@ -11,7 +11,7 @@ public class Hospital {
 
     public Hospital(String id_city, double latitutde, double longitude, String name) {
         this.id_city = id_city;
-        this.latitutde = latitutde;
+        this.latitude = latitutde;
         this.longitude = longitude;
         this.name = name;
     }
@@ -25,11 +25,11 @@ public class Hospital {
     }
 
     public double getLatitutde() {
-        return latitutde;
+        return latitude;
     }
 
     public void setLatitutde(double latitutde) {
-        this.latitutde = latitutde;
+        this.latitude = latitutde;
     }
 
     public double getLongitude() {

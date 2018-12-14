@@ -146,13 +146,18 @@ public class PricesFragment extends Fragment {
 
         @Override
         public void run() {
-            getActivity().runOnUiThread(() -> {
-                if (viewPager.getCurrentItem() < phrases.size() - 1) {
-                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
-                } else {
-                    viewPager.setCurrentItem(0);
-                }
-            });
+            try {
+                getActivity().runOnUiThread(() -> {
+                    if (viewPager.getCurrentItem() < phrases.size() - 1) {
+                        viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                    } else {
+                        viewPager.setCurrentItem(0);
+                    }
+                });
+            }catch (Exception e ){
+
+            }
+
         }
     }
 

@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.kantutapp.bloodhope.adapter.BloodAdapter;
 import com.kantutapp.bloodhope.models.User;
+import com.kantutapp.bloodhope.utils.EditTextMontserratRegular;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +31,14 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
     private static final int NUMBER_COLS = 6;
     private static final String USER = "User";
 
-    @BindView(R.id.btn_done) FancyButton btnDone;
-    @BindView(R.id.recycler_blood_types) RecyclerView recyclerBloodTypes;
-    @BindView(R.id.et_user_number) EditText etUserNumber;
+    @BindView(R.id.btn_done)
+    FancyButton btnDone;
+    @BindView(R.id.recycler_blood_types)
+    RecyclerView recyclerBloodTypes;
+    @BindView(R.id.et_user_number)
+    EditTextMontserratRegular etUserNumber;
+    @BindView(R.id.et_user_email)
+    EditTextMontserratRegular etUserEmail;
 
     private User currentUser = new User();
 
@@ -43,7 +49,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     FirebaseUser firebaseUser;
 
-
+    boolean hasSelectATypeOfBlood = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +77,7 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_done:
                 goToGeneralActivity();
                 break;
@@ -80,36 +86,62 @@ public class RegisterUserActivity extends AppCompatActivity implements View.OnCl
 
     private void goToGeneralActivity() {
 
+        if (validateFields() && validateBloodType()){
+            Toast.makeText(RegisterUserActivity.this, "Some data are missing, please complete", Toast.LENGTH_SHORT).show();
+        }else {
+            firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        currentUser.setName(firebaseUser.getDisplayName());
-        currentUser.setPhoto(firebaseUser.getPhotoUrl().toString());
-        currentUser.setPhone_number(etUserNumber.getText().toString());
-
-
-        createUser(currentUser);
-        Intent intent = new Intent(RegisterUserActivity.this, GeneralActivity.class);
-        intent.putExtra(USER, currentUser);
-        startActivity(intent);
-        finish();
+            currentUser.setKey(firebaseUser.getUid());
+            currentUser.setName(firebaseUser.getDisplayName());
+            currentUser.setPhoto(firebaseUser.getPhotoUrl().toString());
+            currentUser.setPhone_number(etUserNumber.getText().toString());
+            currentUser.setEmail(etUserEmail.getText().toString());
+            currentUser.setBlood_type(etUserEmail.getText().toString());
+            currentUser.setNumber_donations(0);
 
 
+            createUser(currentUser);
+            Intent intent = new Intent(RegisterUserActivity.this, GeneralActivity.class);
+            intent.putExtra(USER, currentUser);
+            startActivity(intent);
+            finish();
+        }
+
+
+
+
+    }
+
+    private boolean validateBloodType() {
+        if (!hasSelectATypeOfBlood)
+            return true;
+        return false;
+    }
+
+    private boolean validateFields() {
+        final EditText[] fields = {etUserEmail, etUserNumber};
+        for (int i = 0; i < fields.length; i++) {
+            String field = fields[i].getText().toString();
+            if (field.trim().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
     @Override
     public void onBloodTypeClickListener(String bloodType) {
+        hasSelectATypeOfBlood = true;
         currentUser.setBlood_type(bloodType);
-        Toast.makeText(this, bloodType, Toast.LENGTH_SHORT).show();
 
     }
-    public void createUser(User user ) {
-        //Realtime Firebase
 
+    public void createUser(User user) {
+        //Realtime Firebase
         DatabaseReference newData = ref.child("users").child(firebaseUser.getUid());
         newData.setValue(user);
-        Log.w(TAG, "create " + firebaseUser.getUid() + "." +user.getBlood_type());
+        Log.w(TAG, "create " + firebaseUser.getUid() + "." + user.getBlood_type());
 
     }
 }

@@ -93,6 +93,11 @@
             </intent-filter>
         </service>
 
+
+        <provider android:authorities="com.facebook.app.FacebookContentProvider771140329892853"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true"/>
+
     </application>
 
 </manifest>

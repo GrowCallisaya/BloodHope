@@ -73,6 +73,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     // Facebook SignIn
     implementation 'com.facebook.android:facebook-login:4.38.1'
+    implementation 'com.facebook.android:facebook-share:[4,5)'
     // Fancy Buttons
     implementation 'com.github.medyo:fancybuttons:1.9.0'
     // Butterknife

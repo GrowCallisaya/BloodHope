@@ -1,9 +1,9 @@
 package com.kantutapp.bloodhope;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.widget.Button;
@@ -12,14 +12,12 @@ import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    ArrayList<String> a = new ArrayList<String>();
     private ViewPager m_slideView;
     private LinearLayout m_taps; // layout inferior
     private TextView[] mDots;
@@ -51,26 +49,17 @@ public class MainActivity extends AppCompatActivity {
         m_slideView.addOnPageChangeListener(viewListener);
 
         //Clicks listener
-        m_btnNext.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        m_btnNext.setOnClickListener(view -> {
 
-
-                if(m_btnNext.getText().toString().equals(getResources().getString(R.string.button_welcome_finish))){
-                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                }else {
-                    m_slideView.setCurrentItem(mCurrentPage +1);
-                }
-
+            if(m_btnNext.getText().toString().equals(getResources().getString(R.string.button_welcome_finish))){
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+            }else {
+                m_slideView.setCurrentItem(mCurrentPage +1);
             }
+
         });
 
-        m_btnPrev.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                m_slideView.setCurrentItem(mCurrentPage -1);
-            }
-        });
+        m_btnPrev.setOnClickListener(view -> m_slideView.setCurrentItem(mCurrentPage -1));
     }
 
     public void addDots (int position){

@@ -3,25 +3,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/screen_one"
     tools:context="com.kantutapp.bloodhope.MainActivity">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/fondo_slider"
+        android:scaleType="centerCrop"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/slideView"
-
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/taps"
-        android:layout_alignParentStart="true"
-        >
+        android:layout_alignParentStart="true">
 
 
     </android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:id="@+id/taps"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -37,9 +38,10 @@
         android:id="@+id/button1prev"
         android:background="@android:color/transparent"
         android:text="@string/button_welcome_previous"
-
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:visibility="invisible"
@@ -51,6 +53,7 @@
         android:text="@string/button_welcome_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:textColor="@color/colorWhite"/>

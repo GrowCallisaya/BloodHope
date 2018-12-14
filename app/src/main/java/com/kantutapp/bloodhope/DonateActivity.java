@@ -1,6 +1,7 @@
 package com.kantutapp.bloodhope;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -35,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,6 +67,7 @@ public class DonateActivity extends AppCompatActivity {
     @BindView(R.id.mapView)
     MapView mapView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,6 +79,7 @@ public class DonateActivity extends AppCompatActivity {
         checkPermissions();
 
         mapView.onCreate(savedInstanceState);
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -102,12 +106,13 @@ public class DonateActivity extends AppCompatActivity {
                         final Hospital hospital = dataSnapshot.getValue(Hospital.class);
 
                         if (hospital != null){
-                            double latitute = hospital.getLatitutde();
+                            double latitude = hospital.getLatitutde();
                             double longitude= hospital.getLongitude();
                             String name= hospital.getName();
                             mapView.getMapAsync( mapboxMap -> {
 
-                                LatLng coords = new LatLng(latitute, longitude);
+                                LatLng coords = new LatLng(latitude, longitude);
+
                                 mapboxMap.addMarker(new MarkerOptions()
                                         .position(coords)
                                         .title(name)
@@ -115,7 +120,8 @@ public class DonateActivity extends AppCompatActivity {
 
                                 CameraPosition position = new CameraPosition.Builder()
                                         .target(coords)
-                                        .zoom(11)
+                                        .bearing(-60)
+                                        .zoom(15)
                                         .build();
 
                                 mapboxMap.animateCamera(CameraUpdateFactory
@@ -226,6 +232,7 @@ public class DonateActivity extends AppCompatActivity {
                     break;
             }
         }
+        finish();
     }
 
     /**
@@ -253,7 +260,7 @@ public class DonateActivity extends AppCompatActivity {
     private void sendWhatsapp(String number) {
         // TODO (5) Cambiar el mensaje de whastapp
         try {
-            String text = "Hey there! I'll be your collaborator!";
+            String text = "Hey there! I'm in! Give me more details, and don't forget to add me as your collaborator!";
             String toNumber = number;
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + toNumber + "&text=" + text));
@@ -269,7 +276,7 @@ public class DonateActivity extends AppCompatActivity {
         try {
             Intent emailIntent = EmailIntentBuilder.from(this)
                     .to(email)
-                    .subject("FOUR DEMO SUBJECT")
+                    .subject("BloodHope: Hey! Somebody wants to join to your cause!")
                     .body(buildHTML())
                     .build();
             startActivity(emailIntent);
@@ -280,7 +287,7 @@ public class DonateActivity extends AppCompatActivity {
 
     private String buildHTML() {
         // TODO (3) Cambiar los datos de respuesta
-        return "Hey felicidades ya estas en la app";
+        return "Hey there! I'm in! Give me more details, and don't forget to add me as your collaborator!";
     }
 
     @Override

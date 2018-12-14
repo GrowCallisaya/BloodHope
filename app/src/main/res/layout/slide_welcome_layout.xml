@@ -2,13 +2,12 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/slideImage"
-        android:layout_width="177dp"
+        android:layout_width="183dp"
         android:layout_height="177dp"
         android:layout_marginTop="65dp"
         android:scaleType="fitStart"
@@ -18,33 +17,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@mipmap/ic_launcher_round" />
 
-    <TextView
+    <com.kantutapp.bloodhope.utils.TextViewMontserratBold
         android:id="@+id/slideText1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="144dp"
         android:text="HEADING"
         android:textAppearance="@style/TextAppearance.AppCompat.Caption"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/slideImage" />
 
-    <TextView
+    <com.kantutapp.bloodhope.utils.TextViewMontserratRegular
         android:id="@+id/slideText2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:lineSpacingExtra="14sp"
         android:padding="35dp"
         android:text="Lorem ipsum dolor sit amet, consectetur\n adipiscing elit, sed do eiusmod tempor\n incididunt ut labore et dolore magina aliqua"
         android:textAlignment="center"
-        android:textColor="@color/colorTransparentWhite"
+        android:textColor="@color/colorWhite"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/slideText1"/>
+        app:layout_constraintTop_toBottomOf="@+id/slideText1" />
 </android.support.constraint.ConstraintLayout>
