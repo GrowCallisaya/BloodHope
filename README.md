@@ -4,22 +4,26 @@ This app will help people who need blood, with those amazing people who are able
 
 <img src="images/artbloodhope.png" >
 
-##Description
-- App File Name : [Link](https://github.com/GrowCallisaya/BloodHope/executable_folder)
-- Team Name : KantutaApp
-- Country : Bolivia
-- Author’s  :  1. Grover Callisaya [Link](https://github.com/GrowCallisaya)
- 			   2. Fabiola Acarapi [Link](https://github.com/fabiola29298)	
-- Video: [Link]( )
-- Short Description : This app will help people who need blood, with those amazing people who are able to donate 
-- General Description : BlodeHope is a mobile application to connect donors with people who need blood. 
+## Description
+
+     - App File Name : [Link](https://drive.google.com/file/d/1C7hs0WzHSmEn0lmeGXXfX5i1JfP3mHPr/view?usp=sharing)
+     - Team Name : KantutaApp
+     - Country : Bolivia 
+     - Region : 9
+     - Author’s  :  
+       - 1. Grover Callisaya [Link](https://github.com/GrowCallisaya)
+       - 2. Fabiola Acarapi [Link](https://github.com/fabiola29298)	
+     - Video: [Link]( )
+     - License: MIT 
+     - Short Description : This app will help people who need blood, with those amazing people who are able to donate 
+     - General Description : **BlodeHope** is a mobile application to connect donors with people who need blood. 
 41% of blood donations come from voluntary and altruistic donors in Latin America and the Caribbean. We can reverse the situation by donating blood periodically using BloodHope to connect donors with people who need blood, with each unit of blood you can save three people.
-*How it Works*
+       - **How it Works**
 As a person who need blood, you can create a cause, describe personal data, deadline, hospital, city, type of blood, photo, your story and can see the collaborators who joined your cause by donating blood.
 As a donor, you can see all different causes, share the causes by social networks, join the cause by donating blood in the blood bank where you need it and contact you by WhatsApp or Email.
-*How will increase donors in the community?*
+       - **How will increase donors in the community?**
 we will conect donors with causes acording type blood and location, encourage donors through points that accumulate for each donation and with them you can get t-shirts and cups and share the causes in social networks with friends to make the community grow.
-*Our vision of the application*
+       - **Our vision of the application**
 Support the increase of volunteer donors in Latin America mainly.
 Support voluntary donation systems as a way to promote caring for others and community cohesion.
 When the database grows to a considerable size we can use meaching Learning and predict the high and low demand of each blood type per month according to the city, so notify in the time of less demand according to the blood type of the donors.
