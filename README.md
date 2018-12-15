@@ -12,11 +12,15 @@ This app will help people who need blood, with those amazing people who are able
 - Region : 9
 - Author’s  :  
        - 1. Grover Callisaya [User Github](https://github.com/GrowCallisaya)
-       - 2. Fabiola Acarapi [Link](https://github.com/fabiola29298)	
-- Video: [Link]( )
+       - 2. Fabiola Acarapi [User Github](https://github.com/fabiola29298)	
+- Video: [Link](https://youtu.be/uQVMm_Aex2s)
 - License: MIT 
-- Short Description : This app will help people who need blood, with those amazing people who are able to donate 
-- General Description : **BlodeHope** is a mobile application to connect donors with people who need blood. 
+
+######  Short Description : 
+This app will help people who need blood, with those amazing people who are able to donate 
+
+######  General Description : 
+**BlodeHope** is a mobile application to connect donors with people who need blood. 
 41% of blood donations come from voluntary and altruistic donors in Latin America and the Caribbean. We can reverse the situation by donating blood periodically using BloodHope to connect donors with people who need blood, with each unit of blood you can save three people.
 
 ######  **How it Works**
